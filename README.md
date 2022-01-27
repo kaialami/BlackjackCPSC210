@@ -6,7 +6,7 @@
 **What is blackjack?**  
 Blackjack is a gambling game involving playing cards. 
 In short, the goal is to achieve a hand where the score is as close to 21 without exceeding it.
-More info [here](https://en.wikipedia.org/wiki/Blackjack.). The rules of blackjack in this application will follow Wikipedia's definition. 
+More info [here](https://en.wikipedia.org/wiki/Blackjack). The rules of blackjack in this application will follow Wikipedia's definition. 
 
 **What will this application do?**   
 This application will allow a user to play blackjack against an automated dealer. 
