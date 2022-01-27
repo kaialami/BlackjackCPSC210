@@ -1,6 +1,8 @@
-# My Personal Project
+# Piano MIDI
+## Virtual piano keyboard
 
-## A subtitle
+## Kai Alami
+#
 
 A *bulleted* list:
 - item 1
@@ -8,3 +10,4 @@ A *bulleted* list:
 - item 3
 
 An example of text with **bold** and *italic* fonts.  
+
