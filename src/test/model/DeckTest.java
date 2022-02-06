@@ -34,4 +34,11 @@ public class DeckTest {
         assertEquals(2, card2.getValue());
     }
 
+    @Test
+    public void testRemoveCard() {
+        deck.removeCard();
+        assertEquals(51, deck.getActiveDeck().size());
+        deck.removeCard();
+        assertEquals(50, deck.getActiveDeck().size());
+    }
 }

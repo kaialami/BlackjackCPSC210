@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 // Represents a deck of Cards with an active deck and full deck (for reference)
 // The max amount of cards in the decks is 52
@@ -27,6 +28,15 @@ public class Deck {
             }
         }
         return deck;
+    }
+
+    // REQUIRES: deck size > 0
+    // MODIFIES: this
+    // EFFECTS: removes and returns random card from the deck
+    public Card removeCard() {
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(activeDeck.size());
+        return activeDeck.remove(randomIndex);
     }
 
     public List<Card> getActiveDeck() {
