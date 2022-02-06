@@ -67,9 +67,12 @@ public class Hand {
         cards.add(new Card(1, 1));
     }
 
-    public List<Card> getHand() {
+    public List<Card> getCards() {
         return this.cards;
     }
 
+    public int getSize() {
+        return this.cards.size();
+    }
 
 }

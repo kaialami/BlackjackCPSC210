@@ -17,7 +17,7 @@ public class HandTest {
 
     @Test
     public void testConstructor() {
-        assertEquals(0, hand.getHand().size());
+        assertEquals(0, hand.getCards().size());
     }
 
     @Test
@@ -29,13 +29,13 @@ public class HandTest {
     @Test
     public void testAddSpecificCardsTestMethods() {
         hand.addThree();
-        assertEquals(3, hand.getHand().get(0).getValue());
+        assertEquals(3, hand.getCards().get(0).getValue());
 
         hand.addQueen();
-        assertEquals(12, hand.getHand().get(1).getValue());
+        assertEquals(12, hand.getCards().get(1).getValue());
 
         hand.addAce();
-        assertEquals(1, hand.getHand().get(2).getValue());
+        assertEquals(1, hand.getCards().get(2).getValue());
     }
 
     @Test

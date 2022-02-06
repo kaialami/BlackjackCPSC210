@@ -6,35 +6,69 @@ package model;
 // Then they can perform certain actions such as hit, stand, etc.
 // Standing, doubling down or going bust ends their turn.
 public class Player {
+    private Hand hand;
+    private int score;
+    private int balance;
+    private int bet;
+    private boolean isTurn;
 
-    // EFFECTS: creates instance of player with an empty hand and 100 chips to start with
+    public static final int STARTING_BALANCE = 100;
+
+    // EFFECTS: creates instance of player with an empty hand and STARTING_BALANCE chips to start with
     public Player() {
-
+        hand = new Hand();
+        score = 0;
+        balance = STARTING_BALANCE;
+        bet = 0;
+        isTurn = true;
     }
 
-    // REQUIRES: bet > 0
+    // REQUIRES: amount > 0, isTurn == true
     // MODIFIES: this
     // EFFECTS: places a bet; subtracts amount from balance
-    public void bet() {
+    public void placeBet(int amount) {
 
     }
 
+    // REQUIRES: isTurn == true
     // MODIFIES: this
     // EFFECTS: adds card from deck to hand, updates the hand's score, then returns the new hand
     public Hand hit(Deck deck) {
         return null;
     }
 
+    // REQUIRES: isTurn == true
     // MODIFIES: this
     // EFFECTS: ends the player's turn
     public void stand() {
 
     }
 
+    // REQUIRES: isTurn == true
     // MODIFIES: this
     // EFFECTS: doubles current bet, adds one card to hand, ends turn and returns the hand.
     public Hand doubleDown(Deck deck) {
         return null;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getBet() {
+        return bet;
+    }
+
+    public boolean isTurn() {
+        return isTurn;
     }
 
 
