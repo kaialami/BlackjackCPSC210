@@ -8,6 +8,7 @@ package model;
 public class User extends Player {
     private int balance;
     private int bet;
+    private boolean isDoubleDown;
 
     public static final int STARTING_BALANCE = 100;
 
@@ -15,9 +16,10 @@ public class User extends Player {
     public User() {
         balance = STARTING_BALANCE;
         bet = 0;
+        isDoubleDown = false;
     }
 
-    // REQUIRES: amount > 0, isTurn == true
+    // REQUIRES: amount > 0, amount <= balance, isTurn == true
     // MODIFIES: this
     // EFFECTS: places a bet; subtracts amount from balance
     public void placeBet(int amount) {
@@ -28,12 +30,14 @@ public class User extends Player {
     // REQUIRES: this.balance >= this.bet, isTurn == true
     // MODIFIES: this
     // EFFECTS: doubles current bet, adds one card to hand, ends turn and returns the hand.
+    // sets isDoubleDown to true
     public Hand doubleDown(Deck deck) {
         balance -= bet;
         bet += bet;
         hand.addCard(deck);
         score = hand.evaluate();
         isTurn = false;
+        isDoubleDown = true;
         return hand;
     }
 
@@ -43,5 +47,17 @@ public class User extends Player {
 
     public int getBet() {
         return bet;
+    }
+
+    public boolean isDoubleDown() {
+        return isDoubleDown;
+    }
+
+    public void setBalance(int amount) {
+        balance = amount;
+    }
+
+    public void setBet(int amount) {
+        bet = amount;
     }
 }

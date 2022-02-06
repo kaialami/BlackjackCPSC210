@@ -8,11 +8,11 @@ public class Player {
     int score;
     boolean isTurn;
 
-    // EFFECTS: creates instance of player. starts their turn and gives them an empty hand.
+    // EFFECTS: creates instance of player gives them an empty hand. Their turn has not started yet
     public Player() {
         hand = new Hand();
         score = 0;
-        isTurn = true;
+        isTurn = false;
     }
 
     // REQUIRES: isTurn == true
@@ -35,6 +35,13 @@ public class Player {
         isTurn = false;
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes player's hand empty and score 0
+    public void resetHand() {
+        hand = new Hand();
+        score = 0;
+    }
+
     public Hand getHand() {
         return hand;
     }
@@ -46,4 +53,9 @@ public class Player {
     public boolean isTurn() {
         return isTurn;
     }
+
+    public void setTurn(boolean bool) {
+        isTurn = bool;
+    }
+
 }

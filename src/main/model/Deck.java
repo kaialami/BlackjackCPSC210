@@ -19,12 +19,10 @@ public class Deck {
     // EFFECTS: generates a list of all 52 cards
     public List<Card> generateFullDeck() {
         List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 52; i++) {
-            for (int j = 0; i < 4; i++) {
-                for (int k = 1; k < 14; k++) {
-                    Card card = new Card(j, k);
-                    deck.add(card);
-                }
+        for (int j = 0; j < 4; j++) {
+            for (int k = 1; k < 14; k++) {
+                Card card = new Card(j, k);
+                deck.add(card);
             }
         }
         return deck;

@@ -26,12 +26,15 @@ public class DeckTest {
         List<Card> fullDeck = deck.getFullDeck();
         Card card1 = fullDeck.get(0);
         Card card2 = fullDeck.get(1);
+        Card card3 = fullDeck.get(51);
 
         assertEquals(52, fullDeck.size());
         assertEquals(0, card1.getSuit());
         assertEquals(1, card1.getValue());
         assertEquals(0, card2.getSuit());
         assertEquals(2, card2.getValue());
+        assertEquals(13, card3.getValue());
+        assertEquals(3, card3.getSuit());
     }
 
     @Test

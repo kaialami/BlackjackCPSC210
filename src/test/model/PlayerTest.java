@@ -19,7 +19,7 @@ public class PlayerTest {
     public void testConstructor() {
         assertEquals(0, player.getHand().getSize());
         assertEquals(0, player.getScore());
-        assertTrue(player.isTurn());
+        assertFalse(player.isTurn());
     }
 
     @Test
