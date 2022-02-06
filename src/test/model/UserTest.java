@@ -31,17 +31,6 @@ public class UserTest {
         assertEquals(STARTING_BALANCE - 10, user.getBalance());
     }
 
-    @Test
-    public void testHit() {
-        user.hit(deck);
-        assertEquals(1, user.getHand().getSize());
-    }
-
-    @Test
-    public void testStand() {
-        user.stand();
-        assertFalse(user.isTurn());
-    }
 
     @Test
     public void testDoubleDown() {
@@ -49,5 +38,6 @@ public class UserTest {
         user.doubleDown(deck);
         assertEquals(20, user.getBet());
         assertEquals(STARTING_BALANCE - 20, user.getBalance());
+        assertFalse(user.isTurn());
     }
 }

@@ -22,7 +22,8 @@ public class HandTest {
 
     @Test
     public void testAddCard() {
-        assertEquals(1, hand.addCard(deck).size());
+        hand.addCard(deck);
+        assertEquals(1, hand.getSize());
         assertEquals(51, deck.getActiveDeck().size());
     }
 

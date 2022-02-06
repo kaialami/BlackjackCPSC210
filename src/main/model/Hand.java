@@ -12,11 +12,10 @@ public class Hand {
         cards = new ArrayList<>();
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds a random card from the given deck to the hand and returns the hand
-    public List<Card> addCard(Deck deck) {
+    // MODIFIES: this, deck
+    // EFFECTS: adds a random card from the given deck to the hand
+    public void addCard(Deck deck) {
         cards.add(deck.removeCard());
-        return cards;
     }
 
     // EFFECTS: evaluates and returns the score of the hand
