@@ -19,9 +19,10 @@ public class UserTest {
     @Test
     public void testConstructor() {
         assertEquals(0, user.getHand().getSize());
+        assertEquals(0, user.getScore());
+        assertTrue(user.isTurn());
         assertEquals(STARTING_BALANCE, user.getBalance());
         assertEquals(0, user.getBet());
-        assertTrue(user.isTurn());
     }
 
     @Test
@@ -30,7 +31,6 @@ public class UserTest {
         assertEquals(10, user.getBet());
         assertEquals(STARTING_BALANCE - 10, user.getBalance());
     }
-
 
     @Test
     public void testDoubleDown() {
