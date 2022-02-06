@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Scanner;
 
 // Blackjack game
+// Has a user, a dealer and a deck.
+// run manages the game loop
+// isDeal indicates when a "hit" is used to deal cards
 public class Blackjack {
     private User user;
     private Dealer dealer;
@@ -24,7 +27,7 @@ public class Blackjack {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes fields
+    // EFFECTS: initializes and instantiates objects
     public void init() {
         user = new User();
         dealer = new Dealer();
@@ -336,6 +339,8 @@ public class Blackjack {
         user.resetHand();
     }
 
+    // MODIFIES: this
+    // EFFECTS: manages if user wants to play again, or is even able to.
     public void playAgain() {
         boolean newRound = isNewRound();
         if (newRound) {
