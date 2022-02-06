@@ -33,6 +33,23 @@ public class UserTest {
     }
 
     @Test
+    public void testHitNoBust() {
+        Hand hand = user.hit(deck);
+        assertEquals(1, hand.getSize());
+        assertTrue(user.isDoubleDown());
+    }
+
+    @Test
+    public void testHitBust() {
+        while (user.getScore() != -1) {
+            user.hit(deck);
+        }
+        assertEquals(-1, user.getScore());
+        assertFalse(user.isTurn());
+        assertTrue(user.isDoubleDown());
+    }
+
+    @Test
     public void testDoubleDown() {
         user.placeBet(10);
         user.doubleDown(deck);

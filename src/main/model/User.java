@@ -5,6 +5,7 @@ package model;
 // When it is their turn, they bet an amount up to their balance.
 // Then they can perform certain actions such as hit, stand, etc.
 // Standing, doubling down or going bust ends their turn.
+// Hitting once prevents doubling down.
 public class User extends Player {
     private int balance;
     private int bet;
@@ -25,6 +26,16 @@ public class User extends Player {
     public void placeBet(int amount) {
         bet = amount;
         balance -= amount;
+    }
+
+    public Hand hit(Deck deck) {
+        hand.addCard(deck);
+        score = hand.evaluate();
+        if (score == -1) {
+            isTurn = false;
+        }
+        isDoubleDown = true;
+        return hand;
     }
 
     // REQUIRES: this.balance >= this.bet, isTurn == true
@@ -59,5 +70,9 @@ public class User extends Player {
 
     public void setBet(int amount) {
         bet = amount;
+    }
+
+    public void setDoubleDown(boolean bool) {
+        isDoubleDown = bool;
     }
 }

@@ -3,7 +3,6 @@ package ui;
 import model.*;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 // Blackjack game
@@ -13,12 +12,14 @@ public class Blackjack {
     private Deck deck;
     private Scanner input;
     private boolean run;
+    private boolean isDeal;
 
     private static final String INVALID_SELECTION = "Invalid selection...";
 
     // EFFECTS: runs the Blackjack game
     public Blackjack() {
         run = true;
+        isDeal = false;
         runBlackjack();
     }
 
@@ -46,6 +47,7 @@ public class Blackjack {
             if (command.equals("y")) {
                 playRound();
             } else if (command.equals("n")) {
+                System.out.println("Okay bye");
                 run = false;
             } else {
                 System.out.println(INVALID_SELECTION + "\n");
@@ -62,43 +64,69 @@ public class Blackjack {
     // MODIFIES: this
     // EFFECTS: processes a single round of blackjack
     public void playRound() {
+        checkIfShuffle();
         betOnRound();
         deal();
-        user.setTurn(true);
-        while (user.isTurn()) {
-            processUserTurn();
-        }
-
-        if (user.getScore() == -1) {
-            gameOver();
-            boolean newRound = isNewRound();
-            if (newRound) {
-                playRound();
-            } else {
-                run = false;
+        userTurn();
+        checkIfPlayerBust(user);
+        if (run) {
+            dealerTurn();
+            checkIfPlayerBust(dealer);
+            if (run) {
+                if (user.getScore() > dealer.getScore()) {
+                    youWin();
+                } else if (user.getScore() < dealer.getScore()) {
+                    gameOver();
+                } else if (user.getScore() == dealer.getScore()) {
+                    tieGame();
+                }
+                playAgain();
             }
         }
     }
 
-    public boolean isNewRound() {
-        if (user.getBalance() <= 0) {
-            System.out.println("You have no money left. Come back when you're a little... richer.");
-            return false;
-        } else {
-            System.out.println("Play again? [y/n]");
-            String command = null;
-            while (true) {
-                command = input.next();
-                command.toLowerCase();
-                if (command.equals("y")) {
-                    return true;
-                } else if (command.equals("n")) {
-                    System.out.println("Come again!");
-                    run = false;
-                } else {
-                    System.out.println(INVALID_SELECTION);
-                }
+    // MODIFIES: this
+    // EFFECTS: if deck size < 20, shuffle deck
+    public void checkIfShuffle() {
+        if (deck.getActiveDeck().size() < 20) {
+            System.out.println("\nShuffling deck\n");
+            deck.setActiveDeck(deck.getFullDeck());
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes user's turn.
+    public void userTurn() {
+        user.setTurn(true);
+        while (user.isTurn()) {
+            processUserTurn();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes dealer's turn
+    public void dealerTurn() {
+        System.out.println("\nDealer's turn\n");
+        dealer.setTurn(true);
+        while (dealer.isTurn()) {
+            doHit(dealer);
+            if (dealer.getScore() > 17) {
+                doStand(dealer);
             }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: checks if player went bust.
+    public void checkIfPlayerBust(Player player) {
+        if (player.getScore() == -1) {
+            if (player.equals(dealer)) {
+                youWin();
+            } else if (player.equals(user)) {
+                gameOver();
+            }
+
+            playAgain();
         }
     }
 
@@ -143,7 +171,7 @@ public class Blackjack {
             } else if (command.equals("s")) {
                 doStand(user);
                 break;
-            } else if (command.equals("dd")) {
+            } else if (command.equals("dd") && !user.isDoubleDown()) {
                 doDoubleDown(user);
                 break;
             } else {
@@ -180,19 +208,24 @@ public class Blackjack {
         System.out.println("\nWhat will you do?");
         System.out.println("\th - hit");
         System.out.println("\ts - stand");
-        System.out.println("\tdd - double down");
+        if (!user.isDoubleDown()) {
+            System.out.println("\tdd - double down");
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: dealer and user hit twice to simulate dealing
     public void deal() {
+        isDeal = true;
         dealer.hit(deck);
         dealer.hit(deck);
         user.hit(deck);
         user.hit(deck);
+        user.setDoubleDown(false);
         System.out.println("\nDealing cards...\n");
         System.out.println("Dealer's hand: " + writeHand(dealer));
         System.out.println("Your hand: " + writeHand(user));
+        isDeal = false;
     }
 
     // EFFECTS: prints given player's hand of cards
@@ -200,7 +233,7 @@ public class Blackjack {
         String cardsInHand = "";
         List<Card> cards = player.getHand().getCards();
         for (int i = 0; i < cards.size(); i++) {
-            if (player.equals(dealer) && i == 0 && !dealer.isTurn()) {
+            if (player.equals(dealer) && i == 0 && isDeal) {
                 cardsInHand += "? ";
             } else {
                 Card card = cards.get(i);
@@ -248,10 +281,67 @@ public class Blackjack {
         }
     }
 
-    // EFFECTS: displays game over message. asks if
+    // MODIFIES: this
+    // EFFECTS: asks user if they want to play a new round with their current balance, if possible.
+    //          then returns their response
+    public boolean isNewRound() {
+        if (user.getBalance() <= 0) {
+            System.out.println("\nYou have no money left. Come back when you're a little... richer.");
+            return false;
+        } else {
+            System.out.println("\nPlay again? Balance is " + Integer.toString(user.getBalance()) + " [y/n]");
+            String command = null;
+            while (true) {
+                command = input.next();
+                command.toLowerCase();
+                if (command.equals("y")) {
+                    return true;
+                } else if (command.equals("n")) {
+                    System.out.println("Come again!");
+                    run = false;
+                    return false;
+                } else {
+                    System.out.println(INVALID_SELECTION);
+                }
+            }
+        }
+    }
+
+    // EFFECTS: displays game over message.
     public void gameOver() {
         System.out.println("\nDealer wins... Better luck next time.");
+        resetPlayers();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: displays win message. adds bet * 2 to user's balance
+    public void youWin() {
+        System.out.println("\nYou win! You get " + Integer.toString(user.getBet() * 2) + " added back.");
+        user.setBalance(user.getBalance() + user.getBet() * 2);
+        resetPlayers();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: returns the bet back to the user.
+    public void tieGame() {
+        System.out.println("\nPush. You get your money back.");
+        user.setBalance(user.getBalance() + user.getBet());
+        resetPlayers();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: resets players to default
+    public void resetPlayers() {
         dealer.resetHand();
         user.resetHand();
+    }
+
+    public void playAgain() {
+        boolean newRound = isNewRound();
+        if (newRound) {
+            playRound();
+        } else {
+            run = false;
+        }
     }
 }

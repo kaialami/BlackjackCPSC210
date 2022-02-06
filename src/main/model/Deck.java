@@ -13,7 +13,7 @@ public class Deck {
     // EFFECTS: creates instance of a full deck of cards
     public Deck() {
         this.fullDeck = generateFullDeck();
-        this.activeDeck = this.fullDeck;
+        this.activeDeck = generateFullDeck();
     }
 
     // EFFECTS: generates a list of all 52 cards
@@ -43,5 +43,9 @@ public class Deck {
 
     public List<Card> getFullDeck() {
         return this.fullDeck;
+    }
+
+    public void setActiveDeck(List<Card> cards) {
+        activeDeck = cards;
     }
 }

@@ -18,7 +18,8 @@ public class DeckTest {
 
     @Test
     public void testConstructor() {
-        assertTrue(deck.getFullDeck() == deck.getActiveDeck());
+        assertEquals(52, deck.getFullDeck().size());
+        assertEquals(52, deck.getActiveDeck().size());
     }
 
     @Test
