@@ -58,4 +58,11 @@ public class PlayerTest {
         assertFalse(player.isTurn());
     }
 
+    @Test
+    public void testResetHand() {
+        player.hit(deck);
+        player.resetHand();
+        assertEquals(0, player.getHand().getSize());
+        assertEquals(0, player.getScore());
+    }
 }
