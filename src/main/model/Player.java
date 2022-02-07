@@ -24,7 +24,6 @@ public class Player {
         if (score == -1) {
             isTurn = false;
         }
-
         return hand;
     }
 

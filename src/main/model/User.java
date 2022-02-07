@@ -38,16 +38,10 @@ public class User extends Player {
 
     // REQUIRES: isTurn == true
     // MODIFIES: this, deck
-    // EFFECTS: removes card from deck and adds it to hand, evaluates and updates score,
-    // removes ability to double down, ends turn if applicable then returns hand.
+    // EFFECTS: disables ability to double down and performs a hit by super's implementation
     public Hand hit(Deck deck) {
-        hand.addCard(deck);
-        score = hand.evaluate();
-        if (score == -1) {
-            isTurn = false;
-        }
         isDoubleDown = true;
-        return hand;
+        return super.hit(deck);
     }
 
     // REQUIRES: this.balance >= this.bet, isTurn == true
