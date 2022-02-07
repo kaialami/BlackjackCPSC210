@@ -58,4 +58,23 @@ public class UserTest {
         assertFalse(user.isTurn());
         assertTrue(user.isDoubleDown());
     }
+
+    @Test
+    public void testPayout() {
+        user.placeBet(50);
+        assertEquals(50, user.getBalance());
+        assertEquals(50, user.getBet());
+
+        user.payout(100);
+        assertEquals(150, user.getBalance());
+        assertEquals(0, user.getBet());
+    }
+
+    @Test
+    public void testSetDoubleDown() {
+        user.setDoubleDown(true);
+        assertTrue(user.isDoubleDown());
+        user.setDoubleDown(false);
+        assertFalse(user.isDoubleDown());
+    }
 }

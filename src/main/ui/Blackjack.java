@@ -92,8 +92,8 @@ public class Blackjack {
     // EFFECTS: if deck size < 20, shuffle deck
     public void checkIfShuffle() {
         if (deck.getActiveDeck().size() < 20) {
-            System.out.println("\nShuffling deck\n");
-            deck.setActiveDeck(deck.getFullDeck());
+            System.out.println("\nShuffling deck...\n");
+            deck.shuffle();
         }
     }
 
@@ -146,8 +146,7 @@ public class Blackjack {
                 if (bet > user.getBalance() || bet <= 0) {
                     System.out.println("Invalid bet amount - Must be positive and less than your balance.");
                 } else {
-                    user.setBalance(user.getBalance() - bet);
-                    user.setBet(bet);
+                    user.placeBet(bet);
                     System.out.println("Bet: " + user.getBet());
                     System.out.println("New Balance: " + user.getBalance());
                     break;
@@ -317,10 +316,10 @@ public class Blackjack {
     }
 
     // MODIFIES: this
-    // EFFECTS: displays win message. adds bet * 2 to user's balance
+    // EFFECTS: displays win message. pays out double the bet to user
     public void youWin() {
         System.out.println("\nYou win! You get " + Integer.toString(user.getBet() * 2) + " added back.");
-        user.setBalance(user.getBalance() + user.getBet() * 2);
+        user.payout(user.getBet() * 2);
         resetPlayers();
     }
 
@@ -328,7 +327,7 @@ public class Blackjack {
     // EFFECTS: returns the bet back to the user.
     public void tieGame() {
         System.out.println("\nPush. You get your money back.");
-        user.setBalance(user.getBalance() + user.getBet());
+        user.payout(user.getBet());
         resetPlayers();
     }
 

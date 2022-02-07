@@ -45,4 +45,11 @@ public class DeckTest {
         deck.removeCard();
         assertEquals(50, deck.getActiveDeck().size());
     }
+
+    @Test
+    public void testShuffle() {
+        deck.removeCard();
+        deck.shuffle();
+        assertEquals(52, deck.getActiveDeck().size());
+    }
 }

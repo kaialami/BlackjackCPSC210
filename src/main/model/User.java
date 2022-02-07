@@ -28,6 +28,18 @@ public class User extends Player {
         balance -= amount;
     }
 
+    // REQUIRES: amount > 0
+    // MODIFIES: this
+    // EFFECTS: pays out bet by amount and resets the bet
+    public void payout(int amount) {
+        bet = 0;
+        balance += amount;
+    }
+
+    // REQUIRES: isTurn == true
+    // MODIFIES: this, deck
+    // EFFECTS: removes card from deck and adds it to hand, evaluates and updates score,
+    // removes ability to double down, ends turn if applicable then returns hand.
     public Hand hit(Deck deck) {
         hand.addCard(deck);
         score = hand.evaluate();
@@ -62,14 +74,6 @@ public class User extends Player {
 
     public boolean isDoubleDown() {
         return isDoubleDown;
-    }
-
-    public void setBalance(int amount) {
-        balance = amount;
-    }
-
-    public void setBet(int amount) {
-        bet = amount;
     }
 
     public void setDoubleDown(boolean bool) {

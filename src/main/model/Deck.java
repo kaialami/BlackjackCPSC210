@@ -37,6 +37,12 @@ public class Deck {
         return activeDeck.remove(randomIndex);
     }
 
+    // MODIFIES: this
+    // EFFECTS: re-generates full deck and assigns it to activeDeck
+    public void shuffle() {
+        activeDeck = generateFullDeck();
+    }
+
     public List<Card> getActiveDeck() {
         return this.activeDeck;
     }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// NOTE: Dealer functions exactly as Player does so tests are redundant
 public class DealerTest {
     private Dealer dealer;
 

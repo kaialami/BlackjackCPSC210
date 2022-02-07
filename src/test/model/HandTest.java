@@ -87,4 +87,14 @@ public class HandTest {
         hand.addThree();
         assertEquals(-1, hand.evaluate());
     }
+
+    @Test
+    public void testEvaluateAceElevenToAceOne() {
+        hand.addAce();
+        assertEquals(11, hand.evaluate());
+        hand.addAce();
+        assertEquals(12, hand.evaluate());
+        hand.addQueen();
+        assertEquals(12, hand.evaluate());
+    }
 }

@@ -43,4 +43,12 @@ public class PlayerTest {
         assertFalse(player.isTurn());
     }
 
+    @Test
+    public void testSetTurn() {
+        player.setTurn(true);
+        assertTrue(player.isTurn());
+        player.setTurn(false);
+        assertFalse(player.isTurn());
+    }
+
 }
