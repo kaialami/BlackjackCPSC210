@@ -50,6 +50,13 @@ public class UserTest {
     }
 
     @Test
+    public void testHitBustLotsOfTimes() {
+        for (int i = 0; i < 300; i++) {
+            testHitBust();
+        }
+    }
+
+    @Test
     public void testDoubleDown() {
         user.placeBet(10);
         user.doubleDown(deck);

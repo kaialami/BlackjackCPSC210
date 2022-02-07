@@ -23,26 +23,51 @@ public class Hand {
     // returns -1 if hand is bust
     public int evaluate() {
         int score = 0;
+        int numOfAcesHigh = 0;
         for (Card card : cards) {
-            int cardValue = card.getValue();
-            if (cardValue >= 11) {
-                score += 10;
-            } else if (cardValue == 1) {
-                if (11 + score > 21) {
-                    score += 1;
+            int cardValue = evaluateCard(card);
+            if (cardValue == 11) {
+                if (cardValue + score > 21) {
+                    cardValue = 1;
                 } else {
-                    score += 11;
+                    numOfAcesHigh++;
                 }
-            } else {
-                score += cardValue;
             }
-
+            score += cardValue;
+            int[] results = handleAceBehaviour(score, numOfAcesHigh);
+            score = results[0];
+            numOfAcesHigh = results[1];
             if (score > 21) {
-                score = -1;
-                break;
+                return -1;
             }
         }
+
         return score;
+    }
+
+    // EFFECTS: evaluates the value of the given card
+    public int evaluateCard(Card card) {
+        int cardValue = card.getValue();
+        if (cardValue > 10) {
+            return 10;
+        } else if (cardValue == 1) {
+            return 11;
+        } else {
+            return cardValue;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages converting aces high to aces low if high exceeds 21
+    public int[] handleAceBehaviour(int score, int numOfAcesHigh) {
+        int[] results = new int[2];
+        while (score > 21 && numOfAcesHigh > 0) {
+            score -= 10;
+            numOfAcesHigh--;
+        }
+        results[0] = score;
+        results[1] = numOfAcesHigh;
+        return results;
     }
 
     // MODIFIES: this

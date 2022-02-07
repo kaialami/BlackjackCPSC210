@@ -50,8 +50,4 @@ public class Deck {
     public List<Card> getFullDeck() {
         return this.fullDeck;
     }
-
-    public void setActiveDeck(List<Card> cards) {
-        activeDeck = cards;
-    }
 }

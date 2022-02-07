@@ -89,12 +89,30 @@ public class HandTest {
     }
 
     @Test
-    public void testEvaluateAceElevenToAceOne() {
+    public void testEvaluateAcesHighToLow() {
         hand.addAce();
         assertEquals(11, hand.evaluate());
         hand.addAce();
         assertEquals(12, hand.evaluate());
         hand.addQueen();
         assertEquals(12, hand.evaluate());
+    }
+
+    @Test
+    public void testHandleAceBehaviourNone() {
+        int[] results = hand.handleAceBehaviour(20, 0);
+        assertEquals(20, results[0]);
+    }
+
+    @Test
+    public void testHandleAceBehaviourOne() {
+        int[] results = hand.handleAceBehaviour(31, 1);
+        assertEquals(21, results[0]);
+    }
+
+    @Test
+    public void testHandleAceBehaviourTwo() {
+        int[] results = hand.handleAceBehaviour(40, 2);
+        assertEquals(20, results[0]);
     }
 }
