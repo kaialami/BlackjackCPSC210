@@ -113,7 +113,7 @@ public class Blackjack {
         dealer.setTurn(true);
         while (dealer.isTurn()) {
             doHit(dealer);
-            if (dealer.getScore() > 17) {
+            if (dealer.getScore() >= 17) {
                 doStand(dealer);
             }
         }
