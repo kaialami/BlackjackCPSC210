@@ -17,7 +17,6 @@ public class GameStateTest {
     @Test
     public void testConstructor() {
         assertEquals(null, gs.getUser());
-        assertEquals(null, gs.getDeck());
     }
 
     @Test
@@ -36,23 +35,4 @@ public class GameStateTest {
         gs.setUser(user2);
         assertEquals(user2, gs.getUser());
     }
-    @Test
-    public void testSetDeckOnce() {
-        Deck deck = new Deck();
-        gs.setDeck(deck);
-        assertEquals(deck, gs.getDeck());
-    }
-
-    @Test
-    public void testSetDeckMultipleTimes() {
-        Deck deck1 = new Deck();
-        Deck deck2 = new Deck();
-        gs.setDeck(deck1);
-        assertEquals(deck1, gs.getDeck());
-        gs.setDeck(deck2);
-        assertEquals(deck2, gs.getDeck());
-    }
-
-
-
 }

@@ -36,6 +36,6 @@ As a user, I want to be able to:
 - *double down* to receive a card and double my bet
 - play as many rounds as I want (or can)
 - quit playing after a round has finished
-- save my progress (balance and deck state) before quitting
+- save my progress (balance) before quitting
 - load my progress upon starting the application and continue with the same game state as before
 

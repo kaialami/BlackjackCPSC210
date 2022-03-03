@@ -45,29 +45,15 @@ public class JsonReader {
     private GameState parseGameState(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         GameState gs = new GameState();
-        addUserAndDeck(gs, jsonObject);
+        addUser(gs, jsonObject);
         return gs;
-    }
-
-    // MODIFIES: gs
-    // EFFECTS: parses user and deck from JSON object and adds them to game state
-    private void addUserAndDeck(GameState gs, JSONObject jsonObject) {
-        JSONArray jsonArrayUser = jsonObject.getJSONArray("user");
-        JSONArray jsonArrayDeck = jsonObject.getJSONArray("deck");
-        JSONObject theUser = (JSONObject) jsonArrayUser.get(0);
-        addUser(gs, theUser);
-        JSONObject theDeck = (JSONObject) jsonArrayDeck.get(0);
-        addDeck(gs, theDeck);
     }
 
     // MODIFIES: gs
     // EFFECTS: parses user's balance from JSON object and adds it to game state
     private void addUser(GameState gs, JSONObject jsonObject) {
         String balance = jsonObject.getString("user");
-        User user = new User();
-
-    }
-
-    private void addDeck(GameState gs, JSONObject jsonObject) {
+        User user = new User(Integer.valueOf(balance));
+        gs.setUser(user);
     }
 }
