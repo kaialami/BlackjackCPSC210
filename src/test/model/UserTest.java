@@ -17,12 +17,16 @@ public class UserTest {
     }
 
     @Test
-    public void testConstructor() {
-        assertEquals(0, user.getHand().getSize());
-        assertEquals(0, user.getScore());
-        assertFalse(user.isTurn());
+    public void testConstructorNoParam() {
         assertEquals(STARTING_BALANCE, user.getBalance());
-        assertEquals(0, user.getBet());
+        constructorRemainingFieldsTesting(user);
+    }
+
+    @Test
+    public void testConstructorBalanceParam() {
+        User userManualBal = new User(500);
+        assertEquals(500, userManualBal.getBalance());
+        constructorRemainingFieldsTesting(userManualBal);
     }
 
     @Test
@@ -83,5 +87,13 @@ public class UserTest {
         assertTrue(user.isDoubleDown());
         user.setDoubleDown(false);
         assertFalse(user.isDoubleDown());
+    }
+
+    // tests the unchanging fields between the two constructors
+    public void constructorRemainingFieldsTesting(User user) {
+        assertEquals(0, user.getHand().getSize());
+        assertEquals(0, user.getScore());
+        assertFalse(user.isTurn());
+        assertEquals(0, user.getBet());
     }
 }

@@ -13,9 +13,18 @@ public class User extends Player {
 
     public static final int STARTING_BALANCE = 100;
 
-    // EFFECTS: creates instance of user with an empty hand and STARTING_BALANCE chips to start with
+    // EFFECTS: creates instance of user with an empty hand and STARTING_BALANCE chips to start with,
+    // has not doubled down
     public User() {
         balance = STARTING_BALANCE;
+        bet = 0;
+        isDoubleDown = false;
+    }
+
+    // REQUIRES: balance > 0
+    // EFFECTS: creates instance of user with an empty hand and given balance to start with, has not doubled down.
+    public User(int balance) {
+        this.balance = balance;
         bet = 0;
         isDoubleDown = false;
     }
