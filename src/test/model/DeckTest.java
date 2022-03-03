@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,5 +51,13 @@ public class DeckTest {
         deck.removeCard();
         deck.shuffle();
         assertEquals(52, deck.getActiveDeck().size());
+    }
+
+    @Test
+    public void testReplaceDeckWith() {
+        List<Card> newCards = new ArrayList<>();
+        newCards.add(new Card(0,0));
+        deck.replaceDeckWith(newCards);
+        assertEquals(1, deck.getActiveDeck().size());
     }
 }

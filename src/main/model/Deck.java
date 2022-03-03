@@ -45,6 +45,12 @@ public class Deck extends Writable {
         activeDeck = generateFullDeck();
     }
 
+    // MODIFIES: this
+    // EFFECTS: replaces current active deck with new list of cards
+    public void replaceDeckWith(List<Card> newActiveDeck) {
+        activeDeck = newActiveDeck;
+    }
+
     public List<Card> getActiveDeck() {
         return this.activeDeck;
     }
