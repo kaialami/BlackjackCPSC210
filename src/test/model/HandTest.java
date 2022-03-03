@@ -21,7 +21,14 @@ public class HandTest {
     }
 
     @Test
-    public void testAddCard() {
+    public void testAddCardSpecific() {
+        Card card = new Card(0, 10);
+        hand.addCard(card);
+        assertEquals(1, hand.getSize());
+    }
+
+    @Test
+    public void testAddCardRandom() {
         hand.addCard(deck);
         assertEquals(1, hand.getSize());
         assertEquals(51, deck.getActiveDeck().size());

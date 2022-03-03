@@ -16,10 +16,18 @@ public class PlayerTest {
     }
 
     @Test
-    public void testConstructor() {
+    public void testConstructorNoParam() {
         assertEquals(0, player.getHand().getSize());
         assertEquals(0, player.getScore());
         assertFalse(player.isTurn());
+    }
+
+    @Test
+    public void testConstructorParam() {
+        Player player2 = new Dealer(1, false, new Hand());
+        assertEquals(1, player2.getScore());
+        assertFalse(player2.isTurn());
+        assertEquals(0, player2.getHand().getSize());
     }
 
     @Test

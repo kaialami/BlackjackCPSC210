@@ -16,6 +16,12 @@ public class Hand extends Writable {
         cards = new ArrayList<>();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds given card to hand
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
     // MODIFIES: this, deck
     // EFFECTS: adds a random card from the given deck to the hand
     public void addCard(Deck deck) {

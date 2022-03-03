@@ -8,6 +8,13 @@ public class Dealer extends Player {
     // EFFECTS: creates instance of dealer with empty hand and score
     public Dealer() {}
 
+    // REQUIRES: 0 <= score <= 21
+    // EFFECTS: creates dealer with specified fields
+    public Dealer(int score, boolean isTurn, Hand hand) {
+        this.score = score;
+        this.isTurn = isTurn;
+        this.hand = hand;
+    }
 
     @Override
     public JSONObject toJson() {

@@ -23,12 +23,15 @@ public class User extends Player {
         isDoubleDown = false;
     }
 
-    // REQUIRES: balance > 0
-    // EFFECTS: creates instance of user with an empty hand and given balance to start with, has not doubled down.
-    public User(int balance) {
+    // REQUIRES: balance > 0, bet >= 0, 0 <= score <= 21
+    // EFFECTS: creates instance of user with specified fields.
+    public User(int score, int balance, int bet, boolean isTurn, boolean isDoubleDown, Hand hand) {
+        this.score = score;
         this.balance = balance;
-        bet = 0;
-        isDoubleDown = false;
+        this.bet = bet;
+        this.isTurn = isTurn;
+        this.isDoubleDown = isDoubleDown;
+        this.hand = hand;
     }
 
     // REQUIRES: amount > 0, amount <= balance, isTurn == true

@@ -54,33 +54,14 @@
 //    // MODIFIES: gs
 //    // EFFECTS: parses user, dealer, deck from JSON object and adds them to game state
 //    private void addUserDealerDeck(GameState gs, JSONObject jsonObject) {
-//        addUser(gs, (JSONObject) jsonObject.get("user"));
-//        addDealer(gs, (JSONObject) jsonObject.get("dealer"));
-//        addDeck(gs, (JSONObject) jsonObject.get("deck"));
+//        User user = parseUser(jsonObject);
 //    }
 //
-//    // MODIFIES: gs
-//    // EFFECTS: parses deck from JSON object and adds it to game state
-//    private void addDeck(GameState gs, JSONObject jsonObject) {
-//        Deck deck = (Deck) jsonObject.get("deck");
-//        gs.setDeck(deck);
-//    }
-//
-//    // MODIFIES: gs
-//    // EFFECTS: parses dealer from JSON object and adds it to game state
-//    private void addDealer(GameState gs, JSONObject jsonObject) {
-//        Dealer dealer = (Dealer) jsonObject.get("dealer");
-//        gs.setDealer(dealer);
-//    }
-//
-//    // MODIFIES: gs
-//    // EFFECTS: parses user from JSON object and adds it to game state
-//    private void addUser(GameState gs, JSONObject jsonObject) {
+//    private User parseUser(JSONObject jsonObject) {
 //        JSONArray userFields = jsonObject.getJSONArray("user");
 //        for (Object field : userFields) {
-//            JSONObject nextField = (JSONObject) json;
+//            JSONObject nextField = (JSONObject) field;
+//            parseUserField(field);
 //        }
-//
-//        gs.setUser(user);
 //    }
 //}
