@@ -151,9 +151,9 @@ public class Blackjack {
     // EFFECTS: process user's bet before a round
     public void betOnRound() {
         String command;
-        System.out.println("\nNew round. \nPlace a bet. Balance is " + Integer.toString(user.getBalance()));
+        System.out.println("\nNew round. \nPlace a bet. Balance is " + user.getBalance());
         while (true) {
-            int bet = 0;
+            int bet;
             command = input.next();
             try {
                 bet = Integer.parseInt(command);
@@ -179,7 +179,7 @@ public class Blackjack {
         String command;
         while (true) {
             command = input.next();
-            command.toLowerCase();
+            command = command.toLowerCase();
 
             if (command.equals("h")) {
                 doHit(user);
@@ -187,7 +187,7 @@ public class Blackjack {
             } else if (command.equals("s")) {
                 doStand(user);
                 break;
-            } else if (command.equals("dd") && !user.isDoubleDown()) {
+            } else if (command.equals("dd") && !user.isDoubleDown() && user.getBalance() >= user.getBet()) {
                 doDoubleDown(user);
                 break;
             } else {
@@ -224,7 +224,7 @@ public class Blackjack {
         System.out.println("\nWhat will you do?");
         System.out.println("\th - hit");
         System.out.println("\ts - stand");
-        if (!user.isDoubleDown()) {
+        if (!user.isDoubleDown() && user.getBalance() >= user.getBet()) {
             System.out.println("\tdd - double down");
         }
     }
@@ -269,7 +269,7 @@ public class Blackjack {
 
     // EFFECTS: converts card's suit int to its string representation
     public String makeSuitString(int suit) {
-        String suitString = "";
+        String suitString;
         if (suit == 0) {
             suitString = "♣";
         } else if (suit == 1) {
@@ -293,7 +293,7 @@ public class Blackjack {
         } else if (value == 13) {
             return "K " + suitString;
         } else {
-            return Integer.toString(value) + " " + suitString;
+            return value + " " + suitString;
         }
     }
 
@@ -305,11 +305,11 @@ public class Blackjack {
             System.out.println("\nYou have no money left. Come back when you're a little... richer.");
             return false;
         } else {
-            System.out.println("\nPlay again? Balance is " + Integer.toString(user.getBalance()) + " [y/n]");
+            System.out.println("\nPlay again? Balance is " + user.getBalance() + " [y/n]");
             String command;
             while (true) {
                 command = input.next();
-                command.toLowerCase();
+                command = command.toLowerCase();
                 if (command.equals("y")) {
                     return true;
                 } else if (command.equals("n")) {
@@ -331,7 +331,7 @@ public class Blackjack {
     // MODIFIES: this
     // EFFECTS: displays win message. pays out double the bet to user
     public void youWin() {
-        System.out.println("\nYou win! You get " + Integer.toString(user.getBet() * 2) + " added back.");
+        System.out.println("\nYou win! You get " + user.getBet() * 2 + " added back.");
         user.payout(user.getBet() * 2);
         resetPlayers();
     }
@@ -388,7 +388,7 @@ public class Blackjack {
         String command;
         while (true) {
             command = input.next();
-            command.toLowerCase();
+            command = command.toLowerCase();
             if (command.equals("y")) {
                 return true;
             } else if (command.equals("n")) {
@@ -413,8 +413,10 @@ public class Blackjack {
             } catch (IOException e) {
                 System.out.println("Unable to read from file " + JSON_STORE);
             } catch (JSONException e) {
-                System.out.println("Unable to load an unsaved game state");
+                System.out.println("Unable to load an unsaved game state. Loading default session.");
             }
+        } else {
+            System.out.println("Loading default session.");
         }
     }
 
@@ -424,7 +426,7 @@ public class Blackjack {
         String command;
         while (true) {
             command = input.next();
-            command.toLowerCase();
+            command = command.toLowerCase();
             if (command.equals("y")) {
                 return true;
             } else if (command.equals("n")) {
