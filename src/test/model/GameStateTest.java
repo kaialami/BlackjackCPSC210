@@ -8,28 +8,43 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class GameStateTest {
     private GameState gs;
+    private User user;
+    private Dealer dealer;
+    private Deck deck;
 
     @BeforeEach
     public void setup() {
-        gs = new GameState();
+        user = new User();
+        dealer = new Dealer();
+        deck = new Deck();
+        gs = new GameState(user, dealer, deck);
     }
 
     @Test
     public void testConstructor() {
-        assertEquals(-1, gs.getUserBalance());
+        assertEquals(user, gs.getUser());
+        assertEquals(dealer, gs.getDealer());
+        assertEquals(deck, gs.getDeck());
     }
 
     @Test
-    public void testSetUserOnce() {
-        gs.setUserBalance(100);
-        assertEquals(100, gs.getUserBalance());
+    public void testSetUser() {
+        User newUser = new User();
+        gs.setUser(newUser);
+        assertEquals(newUser, gs.getUser());
     }
 
     @Test
-    public void testSetUserMultipleTimes() {
-        gs.setUserBalance(100);
-        assertEquals(100, gs.getUserBalance());
-        gs.setUserBalance(500);
-        assertEquals(500, gs.getUserBalance());
+    public void testSetDealer() {
+        Dealer newDealer = new Dealer();
+        gs.setDealer(newDealer);
+        assertEquals(newDealer, gs.getDealer());
+    }
+
+    @Test
+    public void testSetDeck() {
+        Deck newDeck = new Deck();
+        gs.setDeck(newDeck);
+        assertEquals(newDeck, gs.getDeck());
     }
 }

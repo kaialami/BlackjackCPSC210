@@ -1,23 +1,49 @@
 package model;
 
-// Current state of the blackjack game that stores a user's balance
+// Current state of the blackjack game
+// Stores user, dealer, deck, and their associated fields
 public class GameState {
-    private int userBalance;
+    private User user;
+    private Dealer dealer;
+    private Deck deck;
 
-    // EFFECTS: creates empty game state where user balance has not been stored yet
-    //          -1 means unstored balance
-    public GameState() {
-        userBalance = -1;
+
+    // EFFECTS: creates game state with saved user, dealer, deck
+    public GameState(User user, Dealer dealer, Deck deck) {
+        this.user = user;
+        this.dealer = dealer;
+        this.deck = deck;
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: sets user to given user
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // MODIFIES: this
-    // EFFECTS: sets game state's stored user to given user
-    public void setUserBalance(int userBalance) {
-        this.userBalance = userBalance;
+    // EFFECTS: sets dealer to given dealer
+    public void setDealer(Dealer dealer) {
+        this.dealer = dealer;
     }
 
-    // EFFECTS: returns stored user object
-    public int getUserBalance() {
-        return userBalance;
+    // MODIFIES: this
+    // EFFECTS: sets deck to given deck
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    // Getters
+    public User getUser() {
+        return user;
+    }
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 }
