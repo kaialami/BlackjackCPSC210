@@ -22,10 +22,6 @@
         },
         {
             "suit": 0,
-            "value": 6
-        },
-        {
-            "suit": 0,
             "value": 7
         },
         {
@@ -142,11 +138,19 @@
         },
         {
             "suit": 2,
+            "value": 10
+        },
+        {
+            "suit": 2,
             "value": 11
         },
         {
             "suit": 2,
             "value": 12
+        },
+        {
+            "suit": 2,
+            "value": 13
         },
         {
             "suit": 3,
@@ -167,10 +171,6 @@
         {
             "suit": 3,
             "value": 5
-        },
-        {
-            "suit": 3,
-            "value": 6
         },
         {
             "suit": 3,
@@ -202,16 +202,16 @@
         }
     ]}],
     "dealer": [{
-        "score": 10,
+        "score": 6,
         "isTurn": true,
         "hand": [{"cards": [{
-            "suit": 2,
-            "value": 10
+            "suit": 0,
+            "value": 6
         }]}]
     }],
     "user": [{
         "bet": 44,
-        "score": 13,
+        "score": 9,
         "isDoubleDown": true,
         "balance": 1000,
         "isTurn": true,
@@ -221,8 +221,8 @@
                 "value": 3
             },
             {
-                "suit": 2,
-                "value": 13
+                "suit": 3,
+                "value": 6
             }
         ]}]
     }]
