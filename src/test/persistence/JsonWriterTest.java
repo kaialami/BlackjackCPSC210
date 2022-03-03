@@ -76,7 +76,6 @@ public class JsonWriterTest {
             dealer = new Dealer(0, true, new Hand());
 
             user.hit(deck);
-            user.hit(deck);
             dealer.hit(deck);
             GameState gs = new GameState(user, dealer, deck);
             JsonWriter writer = new JsonWriter("./data/testWriterChangedFields.json");
@@ -91,7 +90,7 @@ public class JsonWriterTest {
             Deck deck = gs.getDeck();
 
             assertEquals(1000, user.getBalance());
-            assertEquals(3, user.getHand().getSize());
+            assertEquals(2, user.getHand().getSize());
             assertFalse(0 == user.getScore());
             assertTrue(user.isTurn());
             assertEquals(44, user.getBet());
@@ -100,7 +99,7 @@ public class JsonWriterTest {
             assertFalse(0 == dealer.getScore());
             assertTrue(dealer.isTurn());
 
-            assertEquals(49, deck.getActiveDeck().size());
+            assertEquals(50, deck.getActiveDeck().size());
         } catch (IOException e) {
             fail("Unexcpected IOException");
         }
