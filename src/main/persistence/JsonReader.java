@@ -11,6 +11,8 @@ import java.util.stream.Stream;
 
 // This code has been heavily modeled after CPSC 210's JSON Serialization Demo
 // Repository: https://github.com/stleary/JSON-java.git
+
+// Represents a reader that reads game state from JSON data stored in a file
 public class JsonReader {
     private String source;
 
