@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represents the user. They have a hand of cards, a current score
 // and a balance of chips (with arbitrary value). Their bet is also kept track of.
 // When it is their turn, they bet an amount up to their balance.
@@ -81,5 +83,17 @@ public class User extends Player {
 
     public void setDoubleDown(boolean bool) {
         isDoubleDown = bool;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("score", score);
+        json.put("balance", balance);
+        json.put("bet", bet);
+        json.put("isDoubleDown", isDoubleDown);
+        json.put("isTurn", isTurn);
+        json.put("hand", objectToJson(hand));
+        return json;
     }
 }

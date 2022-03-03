@@ -1,12 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Current state of the blackjack game
 // Stores user, dealer, deck, and their associated fields
-public class GameState {
+public class GameState extends Writable {
     private User user;
     private Dealer dealer;
     private Deck deck;
-
 
     // EFFECTS: creates game state with saved user, dealer, deck
     public GameState(User user, Dealer dealer, Deck deck) {
@@ -14,7 +16,6 @@ public class GameState {
         this.dealer = dealer;
         this.deck = deck;
     }
-
 
     // MODIFIES: this
     // EFFECTS: sets user to given user
@@ -34,6 +35,21 @@ public class GameState {
         this.deck = deck;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("user", objectToJson(user));
+        json.put("dealer", objectToJson(dealer));
+        json.put("deck", objectToJson(deck));
+        return json;
+    }
+
+//    public JSONArray objectToJson(Writable writable) {
+//        JSONArray jsonArray = new JSONArray();
+//        jsonArray.put(writable.toJson());
+//        return jsonArray;
+//    }
+
     // Getters
     public User getUser() {
         return user;
@@ -46,4 +62,5 @@ public class GameState {
     public Deck getDeck() {
         return deck;
     }
+
 }

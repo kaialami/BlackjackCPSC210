@@ -1,18 +1,20 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 // Represents a deck of Cards with an active deck and full deck (for reference)
 // The max amount of cards in the decks is 52
-public class Deck {
-    private List<Card> fullDeck;
+public class Deck extends Writable {
     private List<Card> activeDeck;
 
     // EFFECTS: creates instance of a full deck of cards
     public Deck() {
-        this.fullDeck = generateFullDeck();
         this.activeDeck = generateFullDeck();
     }
 
@@ -47,7 +49,18 @@ public class Deck {
         return this.activeDeck;
     }
 
-    public List<Card> getFullDeck() {
-        return this.fullDeck;
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("activeDeck", cardsToJson());
+        return json;
+    }
+
+    private JSONArray cardsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Card card : activeDeck) {
+            jsonArray.put(objectToJson(card));
+        }
+        return jsonArray;
     }
 }

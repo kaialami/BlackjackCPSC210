@@ -1,9 +1,11 @@
 package model;
 
+import persistence.Writable;
+
 // Represents a player in the game, i.e. the user or the dealer
 // Player has a hand of cards and a corresponding score.
 // On their turn, they can hit or stand. Standing or going bust ends their turn
-public class Player {
+public abstract class Player extends Writable {
     Hand hand;
     int score;
     boolean isTurn;

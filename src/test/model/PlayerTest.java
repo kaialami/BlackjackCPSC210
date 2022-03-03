@@ -11,7 +11,7 @@ public class PlayerTest {
 
     @BeforeEach
     public void setup() {
-        player = new Player();
+        player = new Dealer();
         deck = new Deck();
     }
 

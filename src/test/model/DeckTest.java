@@ -18,13 +18,12 @@ public class DeckTest {
 
     @Test
     public void testConstructor() {
-        assertEquals(52, deck.getFullDeck().size());
         assertEquals(52, deck.getActiveDeck().size());
     }
 
     @Test
     public void testGenerateFullDeck() {
-        List<Card> fullDeck = deck.getFullDeck();
+        List<Card> fullDeck = deck.getActiveDeck();
         Card card1 = fullDeck.get(0);
         Card card2 = fullDeck.get(1);
         Card card3 = fullDeck.get(51);

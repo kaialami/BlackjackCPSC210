@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents player's/dealer's hand with a list of cards in the hand
-public class Hand {
+public class Hand extends Writable {
     private List<Card> cards;
 
     // EFFECTS: creates instance of an empty hand
@@ -99,4 +103,18 @@ public class Hand {
         return this.cards.size();
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("cards", cardsToJson());
+        return json;
+    }
+
+    private JSONArray cardsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Card card : cards) {
+            jsonArray.put(objectToJson(card));
+        }
+        return jsonArray;
+    }
 }
