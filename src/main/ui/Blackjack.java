@@ -1,7 +1,12 @@
 package ui;
 
 import model.*;
+import org.json.JSONException;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,19 +15,25 @@ import java.util.Scanner;
 // run manages the game loop
 // isDeal indicates when a "hit" is used to deal cards
 public class Blackjack {
+    private static final String JSON_STORE = "./data/gamestate.json";
     private User user;
     private Dealer dealer;
     private Deck deck;
     private Scanner input;
     private boolean run;
     private boolean isDeal;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private GameState gs;
 
     private static final String INVALID_SELECTION = "Invalid selection...";
 
     // EFFECTS: runs the Blackjack game
-    public Blackjack() {
+    public Blackjack() throws FileNotFoundException {
         run = true;
         isDeal = false;
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runBlackjack();
     }
 
@@ -32,6 +43,7 @@ public class Blackjack {
         user = new User();
         dealer = new Dealer();
         deck = new Deck();
+        gs = new GameState(user, dealer, deck);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -39,7 +51,7 @@ public class Blackjack {
     // MODIFIES: this
     // EFFECTS: runs game loop
     public void runBlackjack() {
-        String command = null;
+        String command;
 
         init();
 
@@ -48,6 +60,7 @@ public class Blackjack {
             command = input.next();
             command = command.toLowerCase();
             if (command.equals("y")) {
+                loadGameState();
                 playRound();
             } else if (command.equals("n")) {
                 System.out.println("Okay bye");
@@ -84,6 +97,7 @@ public class Blackjack {
                     tieGame();
                 }
                 playAgain();
+                saveGameState();
             }
         }
     }
@@ -128,15 +142,15 @@ public class Blackjack {
             } else if (player.equals(user)) {
                 gameOver();
             }
-
             playAgain();
+            saveGameState();
         }
     }
 
     // MODIFIES: this
     // EFFECTS: process user's bet before a round
     public void betOnRound() {
-        String command = null;
+        String command;
         System.out.println("\nNew round. \nPlace a bet. Balance is " + Integer.toString(user.getBalance()));
         while (true) {
             int bet = 0;
@@ -162,7 +176,7 @@ public class Blackjack {
     // EFFECTS: processes the user's turn (hit, stand, double down)
     public void processUserTurn() {
         displayUserOptions();
-        String command = null;
+        String command;
         while (true) {
             command = input.next();
             command.toLowerCase();
@@ -292,14 +306,13 @@ public class Blackjack {
             return false;
         } else {
             System.out.println("\nPlay again? Balance is " + Integer.toString(user.getBalance()) + " [y/n]");
-            String command = null;
+            String command;
             while (true) {
                 command = input.next();
                 command.toLowerCase();
                 if (command.equals("y")) {
                     return true;
                 } else if (command.equals("n")) {
-                    System.out.println("Come again!");
                     run = false;
                     return false;
                 } else {
@@ -346,6 +359,79 @@ public class Blackjack {
             playRound();
         } else {
             run = false;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages if user wants to save game state after a round has finished
+    public void saveGameState() {
+        if (user.getBalance() > 0) {
+            boolean saveGameState = isSaveGameState();
+            if (saveGameState) {
+                try {
+                    GameState gs = new GameState(user, dealer, deck);
+                    jsonWriter.open();
+                    jsonWriter.write(gs);
+                    jsonWriter.close();
+                    System.out.println("Saved game state to " + JSON_STORE);
+                } catch (FileNotFoundException e) {
+                    System.out.println("Unable to write to file " + JSON_STORE + " : file not found");
+                }
+            }
+            System.out.println("\nCome again!");
+        }
+    }
+
+    // EFFECTS: handles user input on whether to save game state to JSON
+    private boolean isSaveGameState() {
+        System.out.println("\nSave your progress? Balance is " + user.getBalance() + " [y/n]");
+        String command;
+        while (true) {
+            command = input.next();
+            command.toLowerCase();
+            if (command.equals("y")) {
+                return true;
+            } else if (command.equals("n")) {
+                return false;
+            } else {
+                System.out.println(INVALID_SELECTION);
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages if user wants to load game state before starting the first round of a new session
+    public void loadGameState() {
+        boolean loadGameState = isLoadGameState();
+        if (loadGameState) {
+            try {
+                gs = jsonReader.read();
+                user = gs.getUser();
+                dealer = gs.getDealer();
+                deck = gs.getDeck();
+                System.out.println("Loaded game state from " + JSON_STORE);
+            } catch (IOException e) {
+                System.out.println("Unable to read from file " + JSON_STORE);
+            } catch (JSONException e) {
+                System.out.println("Unable to load an unsaved game state");
+            }
+        }
+    }
+
+    // EFFECTS: handles user input on whether to load game state from JSON
+    private boolean isLoadGameState() {
+        System.out.println("\nLoad game state from last save? [y/n]");
+        String command;
+        while (true) {
+            command = input.next();
+            command.toLowerCase();
+            if (command.equals("y")) {
+                return true;
+            } else if (command.equals("n")) {
+                return false;
+            } else {
+                System.out.println(INVALID_SELECTION);
+            }
         }
     }
 }
