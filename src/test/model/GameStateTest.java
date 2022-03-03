@@ -16,23 +16,20 @@ public class GameStateTest {
 
     @Test
     public void testConstructor() {
-        assertEquals(null, gs.getUser());
+        assertEquals(-1, gs.getUserBalance());
     }
 
     @Test
     public void testSetUserOnce() {
-        User user = new User();
-        gs.setUser(user);
-        assertEquals(user, gs.getUser());
+        gs.setUserBalance(100);
+        assertEquals(100, gs.getUserBalance());
     }
 
     @Test
     public void testSetUserMultipleTimes() {
-        User user1 = new User();
-        User user2 = new User();
-        gs.setUser(user1);
-        assertEquals(user1, gs.getUser());
-        gs.setUser(user2);
-        assertEquals(user2, gs.getUser());
+        gs.setUserBalance(100);
+        assertEquals(100, gs.getUserBalance());
+        gs.setUserBalance(500);
+        assertEquals(500, gs.getUserBalance());
     }
 }

@@ -1,9 +1,6 @@
 package persistence;
 
-import jdk.jfr.Category;
 import model.GameState;
-import model.User;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -12,8 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import org.json.*;
-
+// This code has been heavily modeled after CPSC 210's JSON Serialization Demo
+// Repository: https://github.com/stleary/JSON-java.git
 public class JsonReader {
     private String source;
 
@@ -43,17 +40,15 @@ public class JsonReader {
 
     // EFFECTS: parses game state from JSON object and returns it
     private GameState parseGameState(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
         GameState gs = new GameState();
-        addUser(gs, jsonObject);
+        addUserBalance(gs, jsonObject);
         return gs;
     }
 
     // MODIFIES: gs
     // EFFECTS: parses user's balance from JSON object and adds it to game state
-    private void addUser(GameState gs, JSONObject jsonObject) {
-        String balance = jsonObject.getString("user");
-        User user = new User(Integer.valueOf(balance));
-        gs.setUser(user);
+    private void addUserBalance(GameState gs, JSONObject jsonObject) {
+        int balance = jsonObject.getInt("userBalance");
+        gs.setUserBalance(balance);
     }
 }
