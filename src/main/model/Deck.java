@@ -65,7 +65,7 @@ public class Deck extends Writable {
     private JSONArray cardsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Card card : activeDeck) {
-            jsonArray.put(objectToJson(card));
+            jsonArray.put(card.toJson());
         }
         return jsonArray;
     }

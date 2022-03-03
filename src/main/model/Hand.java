@@ -119,7 +119,7 @@ public class Hand extends Writable {
     private JSONArray cardsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Card card : cards) {
-            jsonArray.put(objectToJson(card));
+            jsonArray.put(card.toJson());
         }
         return jsonArray;
     }
