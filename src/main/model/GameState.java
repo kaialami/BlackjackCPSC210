@@ -44,12 +44,6 @@ public class GameState extends Writable {
         return json;
     }
 
-//    public JSONArray objectToJson(Writable writable) {
-//        JSONArray jsonArray = new JSONArray();
-//        jsonArray.put(writable.toJson());
-//        return jsonArray;
-//    }
-
     // Getters
     public User getUser() {
         return user;
