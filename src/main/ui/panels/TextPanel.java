@@ -8,7 +8,7 @@ import java.awt.*;
 import static ui.BlackjackPlayer.JSON_STORE;
 
 public class TextPanel extends JPanel {
-    private static final int HEIGHT = 150;
+    private static final int HEIGHT = 130;
     private static final int FONT_SIZE = 20;
     private static final Font FONT = new Font("Cambria", Font.PLAIN, FONT_SIZE);
 

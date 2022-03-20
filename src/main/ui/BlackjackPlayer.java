@@ -49,6 +49,7 @@ public class BlackjackPlayer extends JFrame {
     // MODIFIES: this
     // EFFECTS: manages startup of a new blackjack game
     private void startBlackjack() {
+        dealer.setTurn(false);
         while (run) {
             textPanel.setText(TextPanel.WELCOME);
             Button activeButton = buttonPanel.getActiveButton();
@@ -147,7 +148,11 @@ public class BlackjackPlayer extends JFrame {
         gamePanel.repaint();
         sleepFor(2500);
         resetPlayers();
-        playAgain();
+        if (user.getBalance() > 0) {
+            playAgain();
+        } else {
+            noMoney();
+        }
     }
 
     // MODIFIES: this
@@ -159,6 +164,14 @@ public class BlackjackPlayer extends JFrame {
         sleepFor(2500);
         resetPlayers();
         playAgain();
+    }
+
+    // EFFECTS: ends session since the user has no money :(
+    private void noMoney() {
+        String text = "<html>You're broke!<br>Why don't you come back when you're a little... richer.<html>";
+        textPanel.setText(text);
+        sleepFor(4000);
+        System.exit(0);
     }
 
     // MODIFIES: this
@@ -180,25 +193,23 @@ public class BlackjackPlayer extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: if player has enough balance, asks if play another round
+    // EFFECTS: asks if play another round
     private void playAgain() {
         run = true;
         buttonPanel.createButtons(ButtonPanel.ButtonLayout.YES_NO);
-        if (user.getBalance() > 0) {
-            textPanel.setText("<html>" + textPanel.getJlabel().getText() + "<br>" + PLAY_AGAIN + "<html>");
-            while (run) {
-                Button activeButton = buttonPanel.getActiveButton();
-                if (activeButton != null) {
-                    if (activeButton.getLabel().equals("Yes")) {
-                        run = false;
-                        buttonPanel.deactivateButton();
-                        sleepFor(500);
-                        playRound();
-                    } else if (activeButton.getLabel().equals("No")) {
-                        buttonPanel.deactivateButton();
-                        saveGameState();
-                        System.exit(0);
-                    }
+        textPanel.setText("<html>" + textPanel.getJlabel().getText() + "<br>" + PLAY_AGAIN + "<html>");
+        while (run) {
+            Button activeButton = buttonPanel.getActiveButton();
+            if (activeButton != null) {
+                if (activeButton.getLabel().equals("Yes")) {
+                    run = false;
+                    buttonPanel.deactivateButton();
+                    sleepFor(500);
+                    playRound();
+                } else if (activeButton.getLabel().equals("No")) {
+                    buttonPanel.deactivateButton();
+                    saveGameState();
+                    System.exit(0);
                 }
             }
         }
