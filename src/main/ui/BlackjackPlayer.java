@@ -204,12 +204,6 @@ public class BlackjackPlayer extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: manages if user wants to save game before quitting
-    private void saveGameState() {
-
-    }
-
-    // MODIFIES: this
     // EFFECTS: manages user turn
     private void userTurn() {
         createUserTurnButtons();
@@ -355,6 +349,7 @@ public class BlackjackPlayer extends JFrame {
                 user = gs.getUser();
                 dealer = gs.getDealer();
                 deck = gs.getDeck();
+                initGUI();
                 textPanel.setText(TextPanel.LOAD_SUCCESS);
             } catch (IOException e) {
                 textPanel.setText(TextPanel.LOAD_FAIL_IOE);
@@ -366,11 +361,51 @@ public class BlackjackPlayer extends JFrame {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: handles user input on whether to load game state from JSON
     private boolean isLoadGameState() {
         boolean response = false;
         run = true;
         textPanel.setText(TextPanel.LOAD);
+        while (run) {
+            Button activeButton = buttonPanel.getActiveButton();
+            if (activeButton != null) {
+                if (activeButton.getLabel().equals("Yes")) {
+                    response = true;
+                }
+                run = false;
+            }
+        }
+        return response;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages if user wants to save game state after a round has finished
+    public void saveGameState() {
+        if (user.getBalance() > 0) {
+            boolean saveGameState = isSaveGameState();
+            if (saveGameState) {
+                try {
+                    GameState gs = new GameState(user, dealer, deck);
+                    jsonWriter.open();
+                    jsonWriter.write(gs);
+                    jsonWriter.close();
+                    textPanel.setText("Saved game state to " + JSON_STORE);
+                } catch (FileNotFoundException e) {
+                    textPanel.setText("Unable to write to file " + JSON_STORE + " : file not found");
+                }
+            }
+            textPanel.setText("Come again!");
+            sleepFor(1000);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: handles user input on whether to save game state to JSON
+    private boolean isSaveGameState() {
+        boolean response = false;
+        run = true;
+        textPanel.setText(TextPanel.SAVE);
         while (run) {
             Button activeButton = buttonPanel.getActiveButton();
             if (activeButton != null) {
@@ -406,6 +441,7 @@ public class BlackjackPlayer extends JFrame {
     // MODIFIES: this
     // EFFECTS: initializes gui stuff
     private void initGUI() {
+        getContentPane().removeAll();
         gamePanel = new GamePanel(gs);
         buttonPanel = new ButtonPanel(ButtonPanel.ButtonLayout.YES_NO);
         textPanel = new TextPanel();
@@ -415,6 +451,7 @@ public class BlackjackPlayer extends JFrame {
         pack();
         centreOnScreen();
         setVisible(true);
+        repaint();
     }
 
     // EFFECTS: sleeps for given number in ms

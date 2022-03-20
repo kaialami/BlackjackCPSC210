@@ -30,6 +30,7 @@ public class TextPanel extends JPanel {
     public static final String LOSE = "Game over! The dealer wins this one.";
     public static final String PUSH = "Push. It's a tie game.";
     public static final String PLAY_AGAIN = "Play again?";
+    public static final String SAVE = "Save your game?";
 
     private JLabel jlabel;
 

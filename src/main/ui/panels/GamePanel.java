@@ -17,7 +17,6 @@ public class GamePanel extends JPanel {
     public static final Font FONT = new Font("Serif", Font.PLAIN, 22);
     public static final Color RED = new Color(180, 0, 0);
 
-    private Deck deck;
     private User user;
     private Dealer dealer;
 
@@ -25,7 +24,6 @@ public class GamePanel extends JPanel {
     public GamePanel(GameState gs) {
         setPreferredSize(new Dimension(BlackjackPlayer.WIDTH, HEIGHT));
         setBackground(BG_COLOR);
-        deck = gs.getDeck();
         user = gs.getUser();
         dealer = gs.getDealer();
     }
@@ -52,6 +50,7 @@ public class GamePanel extends JPanel {
         g.setColor(Color.white);
         g.drawString("BET: " + user.getBet() + "       BALANCE: " + user.getBalance(),
                 20, HEIGHT - g.getFont().getSize());
+        g.setColor(savedCol);
     }
 
     // MODIFIES: g
