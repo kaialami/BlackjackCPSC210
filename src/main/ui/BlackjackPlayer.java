@@ -8,6 +8,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.xml.soap.Text;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
@@ -23,8 +24,9 @@ public class BlackjackPlayer extends JFrame {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameState gs;
-    private GamePanel gp;
-    private ToolPanel tp;
+    private GamePanel gamePanel;
+    private ToolPanel toolPanel;
+    private TextPanel textPanel;
 
     // EFFECTS: constructs main window for blackjack
     public BlackjackPlayer() throws FileNotFoundException {
@@ -32,8 +34,8 @@ public class BlackjackPlayer extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
         init();
-        add(gp);
-        add(tp, BorderLayout.SOUTH);
+        add(gamePanel);
+        add(toolPanel, BorderLayout.SOUTH);
         pack();
         centreOnScreen();
         setVisible(true);
@@ -42,6 +44,9 @@ public class BlackjackPlayer extends JFrame {
 
     // EFFECTS: runs blackjack game
     private void runBlackjack() {
+        while (run) {
+            System.out.println(toolPanel.getActiveTool());
+        }
     }
 
     // MODIFIES: this
@@ -62,8 +67,8 @@ public class BlackjackPlayer extends JFrame {
         gs = new GameState(user, dealer, deck);
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        gp = new GamePanel(gs);
-        tp = new ToolPanel();
+        gamePanel = new GamePanel(gs);
+        toolPanel = new ToolPanel(ToolPanel.ToolLayout.YES_NO);
     }
 
 

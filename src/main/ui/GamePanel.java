@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     public static final int HEIGHT = 500;
-    public static final Color COLOR = new Color(15, 173, 22);
+    public static final Color COLOR = new Color(24, 24, 24);
 
     private Deck deck;
     private User user;
