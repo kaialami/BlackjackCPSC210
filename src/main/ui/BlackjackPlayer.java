@@ -1,9 +1,6 @@
 package ui;
 
-import model.Dealer;
-import model.Deck;
-import model.GameState;
-import model.User;
+import model.*;
 import org.json.JSONException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -72,11 +69,33 @@ public class BlackjackPlayer extends JFrame {
         betOnRound("What is your bet?");
         clearButtons();
         checkIfShuffle();
+        deal();
     }
 
+    // MODIFIES: this
+    // EFFECTS: deals cards. user and dealer hit twice to simulate dealing
+    private void deal() {
+        textPanel.deal();
+        dealer.hit(deck);
+        gamePanel.repaint();
+        sleepFor(200);
+        dealer.hit(deck);
+        gamePanel.repaint();
+        sleepFor(200);
+        user.hit(deck);
+        gamePanel.repaint();
+        sleepFor(200);
+        user.hit(deck);
+        gamePanel.repaint();
+        sleepFor(500);
+        user.setDoubleDown(false);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clears buttons from window
     private void clearButtons() {
         buttonPanel.clearButtons();
-        sleepFor(500);
+        sleepFor(800);
     }
 
     // MODIFIES: this
@@ -85,7 +104,7 @@ public class BlackjackPlayer extends JFrame {
         if (deck.getActiveDeck().size() < THRESHOLD) {
             textPanel.shuffling();
             deck.shuffle();
-            sleepFor(1000);
+            sleepFor(500);
         }
     }
 

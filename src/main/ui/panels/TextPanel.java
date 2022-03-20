@@ -19,8 +19,9 @@ public class TextPanel extends JPanel {
     private static final String LOAD_FAIL_JSONE = "Unable to load an unsaved game state. Loading default session";
     private static final String NO_LOAD = "Loading default session";
     private static final String PLACE_YOUR_BET = "Place your bet";
-    private static final String USER_TURN = "What will you do?";
     private static final String SHUFFLING = "Shuffling deck...";
+    private static final String DEAL = "Dealing cards";
+    private static final String USER_TURN = "What will you do?";
 
     private JLabel jlabel;
 
@@ -86,5 +87,11 @@ public class TextPanel extends JPanel {
     // EFFECTS: sets "shuffling" label
     public void shuffling() {
         jlabel.setText(SHUFFLING);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets "deal" label
+    public void deal() {
+        jlabel.setText(DEAL);
     }
 }
