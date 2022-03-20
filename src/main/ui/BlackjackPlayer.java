@@ -55,7 +55,7 @@ public class BlackjackPlayer extends JFrame {
                     run = false;
                     buttonPanel.deactivateButton();
                     loadGameState();
-                    sleepFor(1500);
+                    sleepFor(1200);
                     playRound();
                 } else if (activeButton.getLabel().equals("No")) {
                     System.exit(0);
@@ -64,12 +64,20 @@ public class BlackjackPlayer extends JFrame {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: manages one round of play
     private void playRound() {
         betOnRound("What is your bet?");
         clearButtons();
         checkIfShuffle();
         deal();
+        userTurn();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages user turn
+    private void userTurn() {
+
     }
 
     // MODIFIES: this
@@ -87,7 +95,7 @@ public class BlackjackPlayer extends JFrame {
         sleepFor(200);
         user.hit(deck);
         gamePanel.repaint();
-        sleepFor(500);
+        sleepFor(800);
         user.setDoubleDown(false);
     }
 

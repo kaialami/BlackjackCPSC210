@@ -20,7 +20,7 @@ public class TextPanel extends JPanel {
     private static final String NO_LOAD = "Loading default session";
     private static final String PLACE_YOUR_BET = "Place your bet";
     private static final String SHUFFLING = "Shuffling deck...";
-    private static final String DEAL = "Dealing cards";
+    private static final String DEAL = "Dealing cards...";
     private static final String USER_TURN = "What will you do?";
 
     private JLabel jlabel;

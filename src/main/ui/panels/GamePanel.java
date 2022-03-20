@@ -10,7 +10,7 @@ import java.awt.*;
 // https://github.students.cs.ubc.ca/CPSC210/B02-SpaceInvadersBase.git
 public class GamePanel extends JPanel {
     public static final int HEIGHT = 540;
-    public static final Color BG_COLOR = new Color(24, 24, 24);
+    public static final Color BG_COLOR = new Color(51, 51, 51);
     public static final int CARD_WIDTH = 90;
     public static final int CARD_HEIGHT = 120;
     public static final Color CARD_COLOR = Color.white;
@@ -42,13 +42,23 @@ public class GamePanel extends JPanel {
     private void drawGame(Graphics g) {
         drawDeck(g);
         drawHands(g);
+        drawBetBalance(g);
+    }
+
+    // MODIFIES: g
+    // EFFECTS: draws user bet and balance onto g
+    private void drawBetBalance(Graphics g) {
+        Color savedCol = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("BET: " + user.getBet() + "       BALANCE: " + user.getBalance(),
+                20, HEIGHT - g.getFont().getSize());
     }
 
     // MODIFIES: g
     // EFFECTS: draws deck onto g
     private void drawDeck(Graphics g) {
         int xpos = BlackjackPlayer.WIDTH - 150;
-        int ypos = HEIGHT / 2 - 55;
+        int ypos = HEIGHT / 2 - 70;
         int cardYPos = ypos + CARD_HEIGHT / 2;
         Color savedCol = g.getColor();
         g.setColor(CARD_COLOR);
@@ -87,7 +97,7 @@ public class GamePanel extends JPanel {
         if (player.equals(user)) {
             ypos = HEIGHT - CARD_HEIGHT - 60;
         } else if (player.equals(dealer)) {
-            ypos = 50;
+            ypos = 30;
         }
         int xpos = CARD_WIDTH * index + index * 20 + 50;
         String cardText = generateCardText(card, player, index);
