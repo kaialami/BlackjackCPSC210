@@ -75,9 +75,15 @@ public class PlayerTest {
     }
 
     @Test
-    public void testHasAce() {
-        assertFalse(player.hasAce());
+    public void testHasAceHas() {
         player.hand.addAce();
         assertTrue(player.hasAce());
+    }
+
+    @Test
+    public void testHasAceNoHas() {
+        player.hand.addQueen();
+        player.hand.addThree();
+        assertFalse(player.hasAce());
     }
 }
