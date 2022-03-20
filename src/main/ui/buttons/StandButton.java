@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 public class StandButton extends Button {
 
+    // EFFECTS: creates stand button
     public StandButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "Stand";

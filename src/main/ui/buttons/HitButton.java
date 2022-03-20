@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 public class HitButton extends Button {
 
+    // EFFECTS: creates hit button
     public HitButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "Hit";

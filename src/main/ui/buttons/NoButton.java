@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 public class NoButton extends Button {
 
+    // EFFECTS: creates no button
     public NoButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "No";

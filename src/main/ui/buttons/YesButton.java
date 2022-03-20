@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 public class YesButton extends Button {
 
+    // EFFECTS: creates yes button
     public YesButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "Yes";

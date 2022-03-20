@@ -10,7 +10,6 @@ import ui.panels.ButtonPanel;
 import ui.buttons.Button;
 
 import javax.swing.*;
-import javax.xml.soap.Text;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -121,6 +120,8 @@ public class BlackjackPlayer extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: process dealer stand
     private void doDealerStand() {
         dealer.stand();
         textPanel.setText(TextPanel.STAND);

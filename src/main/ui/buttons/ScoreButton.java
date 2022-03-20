@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 // Displays current score and gives the user a hint on what they should play
 public class ScoreButton extends Button {
 
+    // EFFECTS: creates score button
     public ScoreButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "Score";

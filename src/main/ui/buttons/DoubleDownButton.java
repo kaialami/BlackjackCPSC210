@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 public class DoubleDownButton extends Button {
 
+    // EFFECTS: creates double down button
     public DoubleDownButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "Double Down";
