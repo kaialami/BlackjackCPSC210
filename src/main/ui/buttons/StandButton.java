@@ -10,14 +10,14 @@ public class StandButton extends Button {
 
     public StandButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
-        label = "stand";
+        label = "Stand";
     }
 
     // MODOFIES: this
     // EFFECTS: creates new button and adds to parent
     @Override
     protected void createButton(JComponent parent) {
-        button = new JButton("stand");
+        button = new JButton("Stand");
         button = customizeButton(button);
     }
 

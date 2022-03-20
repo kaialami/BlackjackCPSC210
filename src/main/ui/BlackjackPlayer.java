@@ -10,9 +10,12 @@ import ui.panels.ButtonPanel;
 import ui.buttons.Button;
 
 import javax.swing.*;
+import javax.xml.soap.Text;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static ui.panels.TextPanel.PLAY_AGAIN;
 
 public class BlackjackPlayer extends JFrame {
     public static final int WIDTH = 900;
@@ -48,7 +51,7 @@ public class BlackjackPlayer extends JFrame {
     // EFFECTS: manages startup of a new blackjack game
     private void startBlackjack() {
         while (run) {
-            textPanel.startup();
+            textPanel.setText(TextPanel.WELCOME);
             Button activeButton = buttonPanel.getActiveButton();
             if (activeButton != null) {
                 if (activeButton.getLabel().equals("Yes")) {
@@ -67,23 +70,229 @@ public class BlackjackPlayer extends JFrame {
     // MODIFIES: this
     // EFFECTS: manages one round of play
     private void playRound() {
+        gamePanel.repaint();
         betOnRound("What is your bet?");
         clearButtons();
+        sleepFor(800);
         checkIfShuffle();
         deal();
+        run = true;
         userTurn();
+        clearButtons();
+        dealer.setTurn(true);
+        if (user.getScore() == -1) {
+            lose();
+        } else {
+            dealerTurn();
+            if (dealer.getScore() == -1) {
+                win();
+            } else {
+                checkScores();
+            }
+        }
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: compares user and dealer scores
+    private void checkScores() {
+        if (user.getScore() > dealer.getScore()) {
+            win();
+        } else if (user.getScore() < dealer.getScore()) {
+            lose();
+        } else {
+            tie();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process dealer turn
+    private void dealerTurn() {
+        while (dealer.getScore() < 17) {
+            textPanel.setText(TextPanel.DEALER_TURN);
+            sleepFor(600);
+            doDealerHit();
+            if (dealer.getScore() == -1) {
+                break;
+            }
+        }
+        if (dealer.getScore() != -1) {
+            doDealerStand();
+        }
+    }
+
+    private void doDealerStand() {
+        dealer.stand();
+        textPanel.setText(TextPanel.STAND);
+        dealer.setTurn(true);
+        gamePanel.repaint();
+        sleepFor(1200);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process dealer hit
+    private void doDealerHit() {
+        dealer.hit(deck);
+        textPanel.setText(TextPanel.HIT);
+        dealer.setTurn(true);
+        gamePanel.repaint();
+        sleepFor(1200);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: ends round and asks if user wants to play again (if they are able to)
+    private void lose() {
+        textPanel.setText(TextPanel.LOSE);
+        gamePanel.repaint();
+        sleepFor(2500);
+        resetPlayers();
+        playAgain();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: pays out 2 * bet to user and asks if play again
+    private void win() {
+        textPanel.setText(TextPanel.WIN);
+        user.payout(2 * user.getBet());
+        gamePanel.repaint();
+        sleepFor(2500);
+        resetPlayers();
+        playAgain();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: pays out bet to user and asks if play again
+    private void tie() {
+        textPanel.setText(TextPanel.PUSH);
+        user.payout(user.getBet());
+        gamePanel.repaint();
+        sleepFor(2500);
+        resetPlayers();
+        playAgain();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: resets player hands
+    private void resetPlayers() {
+        dealer.resetHand();
+        user.resetHand();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if player has enough balance, asks if play another round
+    private void playAgain() {
+        run = true;
+        buttonPanel.createButtons(ButtonPanel.ButtonLayout.YES_NO);
+        if (user.getBalance() > 0) {
+            textPanel.setText("<html>" + textPanel.getJlabel().getText() + "<br>" + PLAY_AGAIN + "<html>");
+            while (run) {
+                Button activeButton = buttonPanel.getActiveButton();
+                if (activeButton != null) {
+                    if (activeButton.getLabel().equals("Yes")) {
+                        run = false;
+                        buttonPanel.deactivateButton();
+                        sleepFor(500);
+                        playRound();
+                    } else if (activeButton.getLabel().equals("No")) {
+                        buttonPanel.deactivateButton();
+                        saveGameState();
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages if user wants to save game before quitting
+    private void saveGameState() {
+
     }
 
     // MODIFIES: this
     // EFFECTS: manages user turn
     private void userTurn() {
+        createUserTurnButtons();
+        while (run) {
+            textPanel.setText(TextPanel.USER_TURN);
+            Button activeButton = buttonPanel.getActiveButton();
+            if (activeButton != null) {
+                if (activeButton.getLabel().equals("Hit")) {
+                    doUserHit();
+                    if (user.getScore() == -1) {
+                        run = false;
+                    }
+                } else if (activeButton.getLabel().equals("Stand")) {
+                    doUserStand();
+                    run = false;
+                } else if (activeButton.getLabel().equals("Double Down")) {
+                    doUserDoubleDown();
+                    run = false;
+                } else if (activeButton.getLabel().equals("Score")) {
+                    doDisplayScore();
+                }
+                buttonPanel.deactivateButton();
+            }
+        }
+    }
 
+    // MODIFIES: this
+    // EFFECTS: creates user turn buttons depending on ability to double down
+    private void createUserTurnButtons() {
+        if (user.getBalance() >= user.getBet()) {
+            buttonPanel.createButtons(ButtonPanel.ButtonLayout.DD_FALSE);
+        } else {
+            buttonPanel.createButtons(ButtonPanel.ButtonLayout.DD_TRUE);
+        }
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: displays score and gives hint
+    private void doDisplayScore() {
+        String hint = "Hint: ";
+        if (user.getScore() >= 17) {
+            hint += "Try standing here.";
+        } else {
+            hint += "Try hitting here.";
+        }
+        textPanel.setText("<html>Your hand's score is " + user.getScore() + ".<br>" + hint + "<html>");
+        sleepFor(1500);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process user double down
+    private void doUserDoubleDown() {
+        user.doubleDown(deck);
+        textPanel.setText(TextPanel.DOUBLE_DOWN);
+        gamePanel.repaint();
+        sleepFor(600);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process user stand
+    private void doUserStand() {
+        user.stand();
+        textPanel.setText(TextPanel.STAND);
+        gamePanel.repaint();
+        sleepFor(600);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process user hit
+    private void doUserHit() {
+        user.hit(deck);
+        textPanel.setText(TextPanel.HIT);
+        gamePanel.repaint();
+        sleepFor(600);
+        clearButtons();
+        buttonPanel.createButtons(ButtonPanel.ButtonLayout.DD_TRUE);
     }
 
     // MODIFIES: this
     // EFFECTS: deals cards. user and dealer hit twice to simulate dealing
     private void deal() {
-        textPanel.deal();
+        textPanel.setText(TextPanel.DEAL);
         dealer.hit(deck);
         gamePanel.repaint();
         sleepFor(200);
@@ -103,23 +312,23 @@ public class BlackjackPlayer extends JFrame {
     // EFFECTS: clears buttons from window
     private void clearButtons() {
         buttonPanel.clearButtons();
-        sleepFor(800);
+        buttonPanel.deactivateButton();
     }
 
     // MODIFIES: this
     // EFFECTS: manages shuffling deck if its size is too low
     private void checkIfShuffle() {
         if (deck.getActiveDeck().size() < THRESHOLD) {
-            textPanel.shuffling();
+            textPanel.setText(TextPanel.SHUFFLING);
             deck.shuffle();
-            sleepFor(500);
+            sleepFor(1300);
         }
     }
 
     // MODIFIES: this
     // EFFECTS: manages betting on a round. input message is given msg
     private void betOnRound(String msg) {
-        textPanel.placeBet();
+        textPanel.setText(TextPanel.PLACE_YOUR_BET);
         int bet;
         String result = JOptionPane.showInputDialog(this,
                 msg + " (Balance is " + user.getBalance() + ")");
@@ -146,14 +355,14 @@ public class BlackjackPlayer extends JFrame {
                 user = gs.getUser();
                 dealer = gs.getDealer();
                 deck = gs.getDeck();
-                textPanel.yesLoad();
+                textPanel.setText(TextPanel.LOAD_SUCCESS);
             } catch (IOException e) {
-                textPanel.loadFailIOE();
+                textPanel.setText(TextPanel.LOAD_FAIL_IOE);
             } catch (JSONException e) {
-                textPanel.loadFailUnsaved();
+                textPanel.setText(TextPanel.LOAD_FAIL_JSONE);
             }
         } else {
-            textPanel.noLoad();
+            textPanel.setText(TextPanel.NO_LOAD);
         }
     }
 
@@ -161,7 +370,7 @@ public class BlackjackPlayer extends JFrame {
     private boolean isLoadGameState() {
         boolean response = false;
         run = true;
-        textPanel.load();
+        textPanel.setText(TextPanel.LOAD);
         while (run) {
             Button activeButton = buttonPanel.getActiveButton();
             if (activeButton != null) {

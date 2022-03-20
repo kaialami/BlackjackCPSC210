@@ -72,6 +72,14 @@ public class User extends Player {
         return hand;
     }
 
+    // MODIFIES: this
+    // EFFECTS: resets hand and bet
+    @Override
+    public void resetHand() {
+        super.resetHand();
+        bet = 0;
+    }
+
     public int getBalance() {
         return balance;
     }

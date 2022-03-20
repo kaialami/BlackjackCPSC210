@@ -8,20 +8,28 @@ import java.awt.*;
 import static ui.BlackjackPlayer.JSON_STORE;
 
 public class TextPanel extends JPanel {
-    private static final int HEIGHT = 58;
+    private static final int HEIGHT = 150;
     private static final int FONT_SIZE = 20;
     private static final Font FONT = new Font("Cambria", Font.PLAIN, FONT_SIZE);
 
-    private static final String WELCOME = "Welcome to Blackjack! Start game?";
-    private static final String LOAD = "Load game from last save?";
-    private static final String LOAD_SUCCESS = "Loaded game from " + JSON_STORE;
-    private static final String LOAD_FAIL_IOE = "Unable to read from file " + JSON_STORE;
-    private static final String LOAD_FAIL_JSONE = "Unable to load an unsaved game state. Loading default session";
-    private static final String NO_LOAD = "Loading default session";
-    private static final String PLACE_YOUR_BET = "Place your bet";
-    private static final String SHUFFLING = "Shuffling deck...";
-    private static final String DEAL = "Dealing cards...";
-    private static final String USER_TURN = "What will you do?";
+    public static final String WELCOME = "Welcome to Blackjack! Start game?";
+    public static final String LOAD = "Load game from last save?";
+    public static final String LOAD_SUCCESS = "Loaded game from " + JSON_STORE;
+    public static final String LOAD_FAIL_IOE = "Unable to read from file " + JSON_STORE;
+    public static final String LOAD_FAIL_JSONE = "Unable to load an unsaved game state. Loading default session...";
+    public static final String NO_LOAD = "Loading default session...";
+    public static final String PLACE_YOUR_BET = "Place your bet.";
+    public static final String SHUFFLING = "Shuffling deck...";
+    public static final String DEAL = "Dealing cards...";
+    public static final String USER_TURN = "What will you do?";
+    public static final String HIT = "Hit!";
+    public static final String STAND = "Stand.";
+    public static final String DOUBLE_DOWN = "Double down!";
+    public static final String DEALER_TURN = "Dealer's turn...";
+    public static final String WIN = "You win!";
+    public static final String LOSE = "Game over! The dealer wins this one.";
+    public static final String PUSH = "Push. It's a tie game.";
+    public static final String PLAY_AGAIN = "Play again?";
 
     private JLabel jlabel;
 
@@ -41,57 +49,7 @@ public class TextPanel extends JPanel {
         jlabel.setText(msg);
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets "welcome" label
-    public void startup() {
-        jlabel.setText(WELCOME);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "load game?" label
-    public void load() {
-        jlabel.setText(LOAD);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "successful" load label
-    public void yesLoad() {
-        jlabel.setText(LOAD_SUCCESS);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "file not found exception" label
-    public void loadFailIOE() {
-        jlabel.setText(LOAD_FAIL_IOE);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "tried to load empty json" label
-    public void loadFailUnsaved() {
-        jlabel.setText(LOAD_FAIL_JSONE);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "don't load game" label
-    public void noLoad() {
-        jlabel.setText(NO_LOAD);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "place bet" label
-    public void placeBet() {
-        jlabel.setText(PLACE_YOUR_BET);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "shuffling" label
-    public void shuffling() {
-        jlabel.setText(SHUFFLING);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets "deal" label
-    public void deal() {
-        jlabel.setText(DEAL);
+    public JLabel getJlabel() {
+        return jlabel;
     }
 }

@@ -20,7 +20,7 @@ public class ButtonPanel extends JPanel {
     public ButtonPanel(ButtonLayout bl) {
         buttons = new ArrayList<>();
         activeButton = null;
-        setSize(new Dimension(0, 0));
+        setSize(new Dimension(0, 300));
         setBackground(Color.white);
         setLayout(new GridLayout(0,1));
         createButtons(bl);
@@ -53,22 +53,29 @@ public class ButtonPanel extends JPanel {
         YesButton yesButton;
         NoButton noButton;
         DoubleDownButton doubleDownButton;
+        ScoreButton scoreButton;
         switch (bl) {
-            case YES_NO:
+            case YES_NO: // yes and no buttons
                 yesButton = new YesButton(this, this);
                 buttons.add(yesButton);
 
                 noButton = new NoButton(this, this);
                 buttons.add(noButton);
                 break;
-            case DD_TRUE:
+            case DD_FALSE: // has not double downed yet
                 createHitStandButtons();
 
                 doubleDownButton = new DoubleDownButton(this, this);
                 buttons.add(doubleDownButton);
+
+                scoreButton = new ScoreButton(this, this);
+                buttons.add(scoreButton);
                 break;
-            case DD_FALSE:
+            case DD_TRUE: // has double downed already
                 createHitStandButtons();
+
+                scoreButton = new ScoreButton(this, this);
+                buttons.add(scoreButton);
         }
     }
 
@@ -80,15 +87,12 @@ public class ButtonPanel extends JPanel {
     }
 
     // MODIFIES: this
-    // EFFECTS: helper method for creating hit and stand buttons (also display score button)
+    // EFFECTS: helper method for creating hit and stand buttons
     private void createHitStandButtons() {
         HitButton hitButton = new HitButton(this, this);
         buttons.add(hitButton);
 
         StandButton standButton = new StandButton(this, this);
         buttons.add(standButton);
-
-        ScoreButton scoreButton = new ScoreButton(this, this);
-        buttons.add(scoreButton);
     }
 }

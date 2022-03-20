@@ -11,7 +11,7 @@ public class ScoreButton extends Button {
 
     public ScoreButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
-        label = "What's my score?";
+        label = "Score";
     }
 
     // MODOFIES: this

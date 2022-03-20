@@ -95,4 +95,13 @@ public class UserTest {
         user.setDoubleDown(false);
         assertFalse(user.isDoubleDown());
     }
+
+    @Test
+    public void testResetHand() {
+        user.hit(deck);
+        user.resetHand();
+        assertEquals(0, user.getHand().getSize());
+        assertEquals(0, user.getScore());
+        assertEquals(0, user.getBet());
+    }
 }
