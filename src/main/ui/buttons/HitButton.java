@@ -1,14 +1,14 @@
-package ui.tools;
+package ui.buttons;
 
-import ui.panels.ToolPanel;
+import ui.panels.ButtonPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HitTool extends Tool {
+public class HitButton extends Button {
 
-    public HitTool(ToolPanel tp, JComponent parent) {
+    public HitButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "Hit";
     }
@@ -29,11 +29,11 @@ public class HitTool extends Tool {
     }
 
     private class HitToolClickHandler implements ActionListener {
-        // EFFECTS: sets active tool to the shape tool
-        //          called by the framework when the tool is clicked
+        // EFFECTS: sets active button to the hit button
+        //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveTool(HitTool.this);
+            tp.setActiveButton(HitButton.this);
         }
     }
 }

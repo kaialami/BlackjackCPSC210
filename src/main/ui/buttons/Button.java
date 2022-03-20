@@ -1,18 +1,18 @@
-package ui.tools;
+package ui.buttons;
 
-import ui.panels.ToolPanel;
+import ui.panels.ButtonPanel;
 
 import javax.swing.*;
 
-// Tool and all tool classes are modelled after CPSC 210's DrawingPlayer app
+// Button and all button classes are modelled after CPSC 210's DrawingPlayer app Tool class
 // https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
-public abstract class Tool {
+public abstract class Button {
     protected JButton button;
-    protected ToolPanel tp;
+    protected ButtonPanel tp;
     private boolean active;
     protected String label;
 
-    public Tool(ToolPanel tp, JComponent parent) {
+    public Button(ButtonPanel tp, JComponent parent) {
         this.tp = tp;
         createButton(parent);
         addToParent(parent);

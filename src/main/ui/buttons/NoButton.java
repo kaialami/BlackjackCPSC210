@@ -1,15 +1,15 @@
-package ui.tools;
+package ui.buttons;
 
-import ui.panels.ToolPanel;
+import ui.panels.ButtonPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NoTool extends Tool {
+public class NoButton extends Button {
 
-    public NoTool(ToolPanel tp, JComponent parent) {
+    public NoButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "No";
     }
@@ -33,11 +33,11 @@ public class NoTool extends Tool {
     }
 
     private class NoToolClickHandler implements ActionListener {
-        // EFFECTS: sets active tool to the shape tool
-        //          called by the framework when the tool is clicked
+        // EFFECTS: sets active button to the no button
+        //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveTool(NoTool.this);
+            tp.setActiveButton(NoButton.this);
         }
     }
 }

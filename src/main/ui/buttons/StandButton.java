@@ -1,23 +1,23 @@
-package ui.tools;
+package ui.buttons;
 
-import ui.panels.ToolPanel;
+import ui.panels.ButtonPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DoubleDownTool extends Tool {
+public class StandButton extends Button {
 
-    public DoubleDownTool(ToolPanel tp, JComponent parent) {
+    public StandButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
-        label = "Double Down";
+        label = "stand";
     }
 
     // MODOFIES: this
     // EFFECTS: creates new button and adds to parent
     @Override
     protected void createButton(JComponent parent) {
-        button = new JButton("Double Down");
+        button = new JButton("stand");
         button = customizeButton(button);
     }
 
@@ -25,15 +25,17 @@ public class DoubleDownTool extends Tool {
     // EFFECTS:  associate button with new ClickHandler
     @Override
     protected void addListener() {
-        button.addActionListener(new DoubleDownToolClickHandler());
+        button.addActionListener(new StandToolClickHandler());
     }
 
-    private class DoubleDownToolClickHandler implements ActionListener {
-        // EFFECTS: sets active tool to the shape tool
-        //          called by the framework when the tool is clicked
+    private class StandToolClickHandler implements ActionListener {
+        // EFFECTS: sets active button to the stand button
+        //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveTool(DoubleDownTool.this);
+            tp.setActiveButton(StandButton.this);
         }
     }
+
+
 }

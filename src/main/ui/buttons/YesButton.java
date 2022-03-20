@@ -1,15 +1,15 @@
-package ui.tools;
+package ui.buttons;
 
-import ui.panels.ToolPanel;
+import ui.panels.ButtonPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class YesTool extends Tool {
+public class YesButton extends Button {
 
-    public YesTool(ToolPanel tp, JComponent parent) {
+    public YesButton(ButtonPanel tp, JComponent parent) {
         super(tp, parent);
         label = "Yes";
     }
@@ -32,11 +32,11 @@ public class YesTool extends Tool {
     }
 
     private class YesToolClickHandler implements ActionListener {
-        // EFFECTS: sets active tool to the shape tool
-        //          called by the framework when the tool is clicked
+        // EFFECTS: sets active button to the yes button
+        //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveTool(YesTool.this);
+            tp.setActiveButton(YesButton.this);
         }
     }
 }

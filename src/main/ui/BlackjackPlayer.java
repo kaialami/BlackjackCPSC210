@@ -9,20 +9,18 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.panels.GamePanel;
 import ui.panels.TextPanel;
-import ui.panels.ToolPanel;
-import ui.tools.Tool;
+import ui.panels.ButtonPanel;
+import ui.buttons.Button;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class BlackjackPlayer extends JFrame {
     public static final int WIDTH = 850;
     public static final String JSON_STORE = "./data/gamestate.json";
-    public static final int INTERVAL = 10;
+    public static final int THRESHOLD = 20;
 
     private User user;
     private Dealer dealer;
@@ -36,7 +34,7 @@ public class BlackjackPlayer extends JFrame {
     private GameState gs;
 
     private GamePanel gamePanel;
-    private ToolPanel toolPanel;
+    private ButtonPanel buttonPanel;
     private TextPanel textPanel;
 
     // EFFECTS: constructs main window for blackjack
@@ -54,15 +52,15 @@ public class BlackjackPlayer extends JFrame {
     private void startBlackjack() {
         while (run) {
             textPanel.startup();
-            Tool activeTool = toolPanel.getActiveTool();
-            if (activeTool != null) {
-                if (activeTool.getLabel().equals("Yes")) {
+            Button activeButton = buttonPanel.getActiveButton();
+            if (activeButton != null) {
+                if (activeButton.getLabel().equals("Yes")) {
                     run = false;
-                    toolPanel.deactivateTool();
+                    buttonPanel.deactivateButton();
                     loadGameState();
-                    waitForMS(1500);
+                    sleepFor(1500);
                     playRound();
-                } else if (activeTool.getLabel().equals("No")) {
+                } else if (activeButton.getLabel().equals("No")) {
                     System.exit(0);
                 }
             }
@@ -71,6 +69,44 @@ public class BlackjackPlayer extends JFrame {
 
     // EFFECTS: manages one round of play
     private void playRound() {
+        betOnRound("What is your bet?");
+        clearButtons();
+        checkIfShuffle();
+    }
+
+    private void clearButtons() {
+        buttonPanel.clearButtons();
+        sleepFor(500);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages shuffling deck if its size is too low
+    private void checkIfShuffle() {
+        if (deck.getActiveDeck().size() < THRESHOLD) {
+            textPanel.shuffling();
+            deck.shuffle();
+            sleepFor(1000);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: manages betting on a round. input message is given msg
+    private void betOnRound(String msg) {
+        textPanel.placeBet();
+        int bet;
+        String result = JOptionPane.showInputDialog(this,
+                msg + " (Balance is " + user.getBalance() + ")");
+        try {
+            bet = Integer.parseInt(result);
+            if (bet > user.getBalance() || bet <= 0) {
+                betOnRound("Invalid bet amount");
+            } else {
+                user.placeBet(bet);
+                textPanel.setText("<html>Bet: " + user.getBet() + "<br>New Balance: " + user.getBalance() + "</html>");
+            }
+        } catch (NumberFormatException e) {
+            betOnRound("Invalid bet amount");
+        }
     }
 
     // MODIFIES: this
@@ -100,9 +136,9 @@ public class BlackjackPlayer extends JFrame {
         run = true;
         textPanel.load();
         while (run) {
-            Tool activeTool = toolPanel.getActiveTool();
-            if (activeTool != null) {
-                if (activeTool.getLabel().equals("No")) {
+            Button activeButton = buttonPanel.getActiveButton();
+            if (activeButton != null) {
+                if (activeButton.getLabel().equals("Yes")) {
                     response = true;
                 }
                 run = false;
@@ -135,18 +171,18 @@ public class BlackjackPlayer extends JFrame {
     // EFFECTS: initializes gui stuff
     private void initGUI() {
         gamePanel = new GamePanel(gs);
-        toolPanel = new ToolPanel(ToolPanel.ToolLayout.YES_NO);
+        buttonPanel = new ButtonPanel(ButtonPanel.ButtonLayout.YES_NO);
         textPanel = new TextPanel();
         add(gamePanel, BorderLayout.NORTH);
         add(textPanel, BorderLayout.CENTER);
-        add(toolPanel, BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
         pack();
         centreOnScreen();
         setVisible(true);
     }
 
     // EFFECTS: sleeps for given number in ms
-    private void waitForMS(int time) {
+    private void sleepFor(int time) {
         try {
             Thread.sleep(time);
         } catch (InterruptedException  e) {

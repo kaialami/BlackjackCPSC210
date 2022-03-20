@@ -8,7 +8,7 @@ import java.awt.*;
 import static ui.BlackjackPlayer.JSON_STORE;
 
 public class TextPanel extends JPanel {
-    private static final int HEIGHT = 45;
+    private static final int HEIGHT = 58;
     private static final int FONT_SIZE = 20;
     private static final Font FONT = new Font("Cambria", Font.PLAIN, FONT_SIZE);
 
@@ -18,6 +18,9 @@ public class TextPanel extends JPanel {
     private static final String LOAD_FAIL_IOE = "Unable to read from file " + JSON_STORE;
     private static final String LOAD_FAIL_JSONE = "Unable to load an unsaved game state. Loading default session";
     private static final String NO_LOAD = "Loading default session";
+    private static final String PLACE_YOUR_BET = "Place your bet";
+    private static final String USER_TURN = "What will you do?";
+    private static final String SHUFFLING = "Shuffling deck...";
 
     private JLabel jlabel;
 
@@ -29,6 +32,12 @@ public class TextPanel extends JPanel {
         jlabel.setFont(FONT);
         jlabel.setHorizontalAlignment(SwingConstants.LEFT);
         this.add(jlabel, BorderLayout.EAST);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets label to given string
+    public void setText(String msg) {
+        jlabel.setText(msg);
     }
 
     // MODIFIES: this
@@ -65,5 +74,17 @@ public class TextPanel extends JPanel {
     // EFFECTS: sets "don't load game" label
     public void noLoad() {
         jlabel.setText(NO_LOAD);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets "place bet" label
+    public void placeBet() {
+        jlabel.setText(PLACE_YOUR_BET);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets "shuffling" label
+    public void shuffling() {
+        jlabel.setText(SHUFFLING);
     }
 }
