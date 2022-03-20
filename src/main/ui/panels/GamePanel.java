@@ -99,7 +99,7 @@ public class GamePanel extends JPanel {
         } else if (player.equals(dealer)) {
             ypos = 30;
         }
-        int xpos = CARD_WIDTH * index + index * 20 + 50;
+        int xpos = CARD_WIDTH * index + index * 20 + 30;
         String cardText = generateCardText(card, player, index);
         Color cardFontColor = getCardColor(card);
         Color savedCol = g.getColor();

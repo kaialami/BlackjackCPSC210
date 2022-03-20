@@ -2,6 +2,8 @@ package model;
 
 import persistence.Writable;
 
+import java.util.List;
+
 // Represents a player in the game, i.e. the user or the dealer
 // Player has a hand of cards and a corresponding score.
 // On their turn, they can hit or stand. Standing or going bust ends their turn
@@ -47,6 +49,17 @@ public abstract class Player extends Writable {
     public void resetHand() {
         hand = new Hand();
         score = 0;
+    }
+
+    // EFFECTS: returns true if player has an ace
+    public boolean hasAce() {
+        List<Card> cards = hand.getCards();
+        for (Card card : cards) {
+            if (card.getValue() == 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Hand getHand() {

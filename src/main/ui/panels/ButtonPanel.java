@@ -80,12 +80,15 @@ public class ButtonPanel extends JPanel {
     }
 
     // MODIFIES: this
-    // EFFECTS: helper method for creating hit and stand buttons
+    // EFFECTS: helper method for creating hit and stand buttons (also display score button)
     private void createHitStandButtons() {
         HitButton hitButton = new HitButton(this, this);
         buttons.add(hitButton);
 
         StandButton standButton = new StandButton(this, this);
         buttons.add(standButton);
+
+        ScoreButton scoreButton = new ScoreButton(this, this);
+        buttons.add(scoreButton);
     }
 }

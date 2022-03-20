@@ -73,4 +73,11 @@ public class PlayerTest {
         assertEquals(0, player.getHand().getSize());
         assertEquals(0, player.getScore());
     }
+
+    @Test
+    public void testHasAce() {
+        assertFalse(player.hasAce());
+        player.hand.addAce();
+        assertTrue(player.hasAce());
+    }
 }
