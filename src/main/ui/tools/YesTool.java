@@ -1,6 +1,6 @@
 package ui.tools;
 
-import ui.ToolPanel;
+import ui.panels.ToolPanel;
 
 import javax.swing.*;
 import java.awt.*;

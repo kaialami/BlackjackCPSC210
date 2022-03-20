@@ -6,9 +6,11 @@ import model.GameState;
 import model.User;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.panels.GamePanel;
+import ui.panels.TextPanel;
+import ui.panels.ToolPanel;
 
 import javax.swing.*;
-import javax.xml.soap.Text;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
@@ -21,9 +23,11 @@ public class BlackjackPlayer extends JFrame {
     private Deck deck;
     private boolean run;
     private boolean isDeal;
+
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private GameState gs;
+
     private GamePanel gamePanel;
     private ToolPanel toolPanel;
     private TextPanel textPanel;
@@ -33,19 +37,15 @@ public class BlackjackPlayer extends JFrame {
         super("Blackjack");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
-        init();
-        add(gamePanel);
-        add(toolPanel, BorderLayout.SOUTH);
-        pack();
-        centreOnScreen();
-        setVisible(true);
+        initFields();
+        initGUI();
         runBlackjack();
     }
 
     // EFFECTS: runs blackjack game
     private void runBlackjack() {
         while (run) {
-            System.out.println(toolPanel.getActiveTool());
+
         }
     }
 
@@ -58,7 +58,7 @@ public class BlackjackPlayer extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: initializes fields.
-    private void init() {
+    private void initFields() {
         deck = new Deck();
         user = new User();
         dealer = new Dealer();
@@ -67,8 +67,20 @@ public class BlackjackPlayer extends JFrame {
         gs = new GameState(user, dealer, deck);
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes gui stuff
+    private void initGUI() {
         gamePanel = new GamePanel(gs);
         toolPanel = new ToolPanel(ToolPanel.ToolLayout.YES_NO);
+        textPanel = new TextPanel();
+        add(gamePanel, BorderLayout.NORTH);
+        add(textPanel, BorderLayout.CENTER);
+        add(toolPanel, BorderLayout.SOUTH);
+        pack();
+        centreOnScreen();
+        setVisible(true);
     }
 
 

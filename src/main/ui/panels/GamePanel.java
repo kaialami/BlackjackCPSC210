@@ -1,13 +1,16 @@
-package ui;
+package ui.panels;
 
 import model.Dealer;
 import model.Deck;
 import model.GameState;
 import model.User;
+import ui.BlackjackPlayer;
 
 import javax.swing.*;
 import java.awt.*;
 
+// Modelled after CPSC 210's SpaceInvaders app
+// https://github.students.cs.ubc.ca/CPSC210/B02-SpaceInvadersBase.git
 public class GamePanel extends JPanel {
     public static final int HEIGHT = 500;
     public static final Color COLOR = new Color(24, 24, 24);

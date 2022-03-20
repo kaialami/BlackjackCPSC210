@@ -1,10 +1,10 @@
 package ui.tools;
 
-import ui.ToolPanel;
+import ui.panels.ToolPanel;
 
 import javax.swing.*;
 
-// Modelled after CPSC 210's DrawingPlayer app
+// Tool and all tool classes are modelled after CPSC 210's DrawingPlayer app
 // https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
 public abstract class Tool {
     protected JButton button;

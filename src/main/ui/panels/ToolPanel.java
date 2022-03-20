@@ -1,4 +1,4 @@
-package ui;
+package ui.panels;
 
 import ui.tools.*;
 
@@ -7,6 +7,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Modelled after CPSC 210's SpaceInvaders and DrawingPlayer apps
+// https://github.students.cs.ubc.ca/CPSC210/B02-SpaceInvadersBase.git
 public class ToolPanel extends JPanel {
     public enum ToolLayout { YES_NO, DD_TRUE, DD_FALSE }
 

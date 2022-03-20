@@ -1,9 +1,8 @@
 package ui.tools;
 
-import ui.ToolPanel;
+import ui.panels.ToolPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
