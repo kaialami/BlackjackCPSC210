@@ -7,17 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DoubleDownTool extends Tool {
-    public static final String LABEL = "Double Down";
 
     public DoubleDownTool(ToolPanel tp, JComponent parent) {
         super(tp, parent);
+        label = "Double Down";
     }
 
     // MODOFIES: this
     // EFFECTS: creates new button and adds to parent
     @Override
     protected void createButton(JComponent parent) {
-        button = new JButton(LABEL);
+        button = new JButton("Double Down");
         button = customizeButton(button);
     }
 

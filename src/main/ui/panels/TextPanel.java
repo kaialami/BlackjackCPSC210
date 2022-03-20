@@ -5,34 +5,65 @@ import ui.BlackjackPlayer;
 import javax.swing.*;
 import java.awt.*;
 
+import static ui.BlackjackPlayer.JSON_STORE;
+
 public class TextPanel extends JPanel {
     private static final int HEIGHT = 45;
     private static final int FONT_SIZE = 20;
-    private static final Font FONT = new Font("Cambria", 0, FONT_SIZE);
+    private static final Font FONT = new Font("Cambria", Font.PLAIN, FONT_SIZE);
 
     private static final String WELCOME = "Welcome to Blackjack! Start game?";
+    private static final String LOAD = "Load game from last save?";
+    private static final String LOAD_SUCCESS = "Loaded game from " + JSON_STORE;
+    private static final String LOAD_FAIL_IOE = "Unable to read from file " + JSON_STORE;
+    private static final String LOAD_FAIL_JSONE = "Unable to load an unsaved game state. Loading default session";
+    private static final String NO_LOAD = "Loading default session";
 
     private JLabel jlabel;
 
+    // EFFECTS: creates text panel with an empty text label
     public TextPanel() {
         setPreferredSize(new Dimension(BlackjackPlayer.WIDTH, HEIGHT));
         setLayout(new FlowLayout(FlowLayout.LEFT));
-        jlabel = new JLabel(WELCOME);
+        jlabel = new JLabel();
         jlabel.setFont(FONT);
         jlabel.setHorizontalAlignment(SwingConstants.LEFT);
         this.add(jlabel, BorderLayout.EAST);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        drawText(g);
+    // MODIFIES: this
+    // EFFECTS: sets "welcome" label
+    public void startup() {
+        jlabel.setText(WELCOME);
     }
 
-    private void drawText(Graphics g) {
-        g.drawString("hi", 0, 0);
+    // MODIFIES: this
+    // EFFECTS: sets "load game?" label
+    public void load() {
+        jlabel.setText(LOAD);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets "successful" load label
+    public void yesLoad() {
+        jlabel.setText(LOAD_SUCCESS);
+    }
 
+    // MODIFIES: this
+    // EFFECTS: sets "file not found exception" label
+    public void loadFailIOE() {
+        jlabel.setText(LOAD_FAIL_IOE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets "tried to load empty json" label
+    public void loadFailUnsaved() {
+        jlabel.setText(LOAD_FAIL_JSONE);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets "don't load game" label
+    public void noLoad() {
+        jlabel.setText(NO_LOAD);
+    }
 }

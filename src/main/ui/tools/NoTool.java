@@ -8,10 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NoTool extends Tool {
-    private static final String LABEL = "No";
 
     public NoTool(ToolPanel tp, JComponent parent) {
         super(tp, parent);
+        label = "No";
     }
 
 
@@ -19,7 +19,7 @@ public class NoTool extends Tool {
     // EFFECTS: creates new button and adds to parent
     @Override
     protected void createButton(JComponent parent) {
-        button = new JButton(LABEL);
+        button = new JButton("No");
         button = customizeButton(button);
         button.setOpaque(true);
         button.setBackground(new Color(236, 34, 34));

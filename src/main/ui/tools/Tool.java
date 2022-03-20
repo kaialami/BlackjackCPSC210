@@ -10,6 +10,7 @@ public abstract class Tool {
     protected JButton button;
     protected ToolPanel tp;
     private boolean active;
+    protected String label;
 
     public Tool(ToolPanel tp, JComponent parent) {
         this.tp = tp;
@@ -17,6 +18,7 @@ public abstract class Tool {
         addToParent(parent);
         active = false;
         addListener();
+        label = "";
     }
 
     // MODIFIES: this
@@ -46,5 +48,9 @@ public abstract class Tool {
     // EFFECTS: sets this Tool's active field to false
     public void deactivate() {
         active = false;
+    }
+
+    public String getLabel() {
+        return label;
     }
 }

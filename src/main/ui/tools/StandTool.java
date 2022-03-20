@@ -7,17 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StandTool extends Tool {
-    public static final String LABEL = "Stand";
 
     public StandTool(ToolPanel tp, JComponent parent) {
         super(tp, parent);
+        label = "stand";
     }
 
     // MODOFIES: this
     // EFFECTS: creates new button and adds to parent
     @Override
     protected void createButton(JComponent parent) {
-        button = new JButton(LABEL);
+        button = new JButton("stand");
         button = customizeButton(button);
     }
 
@@ -36,4 +36,6 @@ public class StandTool extends Tool {
             tp.setActiveTool(StandTool.this);
         }
     }
+
+
 }

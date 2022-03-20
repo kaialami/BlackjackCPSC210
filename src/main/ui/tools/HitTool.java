@@ -7,17 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HitTool extends Tool {
-    public static final String LABEL = "Hit";
 
     public HitTool(ToolPanel tp, JComponent parent) {
         super(tp, parent);
+        label = "Hit";
     }
 
-    // MODOFIES: this
+    // MODIFIES: this
     // EFFECTS: creates new button and adds to parent
     @Override
     protected void createButton(JComponent parent) {
-        button = new JButton(LABEL);
+        button = new JButton("Hit");
         button = customizeButton(button);
     }
 

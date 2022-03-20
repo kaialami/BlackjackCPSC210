@@ -43,6 +43,12 @@ public class ToolPanel extends JPanel {
     }
 
     // MODIFIES: this
+    // EFFECTS: deactivates the active tool
+    public void deactivateTool() {
+        activeTool = null;
+    }
+
+    // MODIFIES: this
     // EFFECTS: declares and instantiates all tools depending on given layout
     public void createTools(ToolLayout tl) {
         YesTool yesTool;

@@ -8,17 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class YesTool extends Tool {
-    public static final String LABEL = "Yes";
 
     public YesTool(ToolPanel tp, JComponent parent) {
         super(tp, parent);
+        label = "Yes";
     }
 
     // MODOFIES: this
     // EFFECTS: creates new button and adds to parent
     @Override
     protected void createButton(JComponent parent) {
-        button = new JButton(LABEL);
+        button = new JButton("Yes");
         button = customizeButton(button);
         button.setOpaque(true);
         button.setBackground(new Color(7, 255, 18));
