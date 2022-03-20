@@ -22,7 +22,7 @@ public class NoButton extends Button {
         button = new JButton("No");
         button = customizeButton(button);
         button.setOpaque(true);
-        button.setBackground(new Color(236, 34, 34));
+        button.setBackground(new Color(255, 75, 75));
     }
 
     // MODIFIES: this

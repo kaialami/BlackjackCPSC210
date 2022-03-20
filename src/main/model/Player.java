@@ -25,7 +25,6 @@ public abstract class Player extends Writable {
         this.hand = hand;
     }
 
-    // REQUIRES: isTurn == true
     // MODIFIES: this, deck
     // EFFECTS: adds a card to hand, updates score, then returns hand. ends turn if bust.
     public Hand hit(Deck deck) {
@@ -37,7 +36,6 @@ public abstract class Player extends Writable {
         return hand;
     }
 
-    // REQUIRES: isTurn == true
     // MODIFIES: this
     // EFFECTS: ends player's turn
     public void stand() {

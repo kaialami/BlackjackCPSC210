@@ -21,7 +21,7 @@ public class YesButton extends Button {
         button = new JButton("Yes");
         button = customizeButton(button);
         button.setOpaque(true);
-        button.setBackground(new Color(7, 255, 18));
+        button.setBackground(new Color(107, 255, 113));
     }
 
     // MODIFIES: this

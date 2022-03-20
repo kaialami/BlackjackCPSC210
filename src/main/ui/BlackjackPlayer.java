@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class BlackjackPlayer extends JFrame {
-    public static final int WIDTH = 850;
+    public static final int WIDTH = 900;
     public static final String JSON_STORE = "./data/gamestate.json";
     public static final int THRESHOLD = 20;
 
