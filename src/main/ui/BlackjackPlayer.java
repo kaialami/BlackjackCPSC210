@@ -49,7 +49,6 @@ public class BlackjackPlayer extends JFrame {
     // MODIFIES: this
     // EFFECTS: manages startup of a new blackjack game
     private void startBlackjack() {
-        dealer.setTurn(false);
         while (run) {
             textPanel.setText(TextPanel.WELCOME);
             Button activeButton = buttonPanel.getActiveButton();
@@ -70,6 +69,7 @@ public class BlackjackPlayer extends JFrame {
     // MODIFIES: this
     // EFFECTS: manages one round of play
     private void playRound() {
+        dealer.setTurn(false);
         gamePanel.repaint();
         betOnRound("What is your bet?");
         clearButtons();
