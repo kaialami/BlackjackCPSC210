@@ -49,20 +49,20 @@ User events:
 Sample event log after two rounds of play where the user clicked the hit button twice and the check score button three times:
 
 Event log:  
-Wed Mar 30 17:34:13 PDT 2022  
+Wed Mar 30 20:39:05 PDT 2022  
 User hit
 
-Wed Mar 30 17:34:13 PDT 2022  
-Check user score  
+Wed Mar 30 20:39:07 PDT 2022  
+Check user score
 
-Wed Mar 30 17:34:13 PDT 2022  
-Check user score  
+Wed Mar 30 20:39:09 PDT 2022  
+Check user score
 
-Wed Mar 30 17:34:13 PDT 2022  
-User hit  
+Wed Mar 30 20:39:23 PDT 2022  
+User hit
 
-Wed Mar 30 17:34:13 PDT 2022  
-Check user score  
+Wed Mar 30 20:39:32 PDT 2022  
+Check user score
 
 
 ****
