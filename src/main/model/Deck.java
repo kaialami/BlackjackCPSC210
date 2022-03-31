@@ -51,6 +51,13 @@ public class Deck extends Writable {
         activeDeck = newActiveDeck;
     }
 
+    // MODIFIES: this, player
+    // EFFECTS: deals one card to player and updates their score
+    public void dealOneCard(Player player) {
+        player.getHand().addCard(removeCard());
+        player.updateScore();
+    }
+
     public List<Card> getActiveDeck() {
         return this.activeDeck;
     }

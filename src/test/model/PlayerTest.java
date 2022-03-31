@@ -86,4 +86,12 @@ public class PlayerTest {
         player.hand.addThree();
         assertFalse(player.hasAce());
     }
+
+    @Test
+    public void testUpdateScore() {
+        player.hand.addAce();
+        assertEquals(0, player.getScore());
+        player.updateScore();
+        assertEquals(11, player.getScore());
+    }
 }

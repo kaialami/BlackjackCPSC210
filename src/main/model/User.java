@@ -14,6 +14,8 @@ public class User extends Player {
     private boolean isDoubleDown;
 
     public static final int STARTING_BALANCE = 100;
+    private static final Event HIT_EVENT = new Event("User hit");
+    private static final Event SCORE_EVENT = new Event("Check user score");
 
     // EFFECTS: creates instance of user with an empty hand and STARTING_BALANCE chips to start with,
     // has not doubled down
@@ -51,10 +53,12 @@ public class User extends Player {
     }
 
     // REQUIRES: isTurn == true
-    // MODIFIES: this, deck
+    // MODIFIES: this, deck, EventLog
     // EFFECTS: disables ability to double down and performs a hit by super's implementation
+    //          and logs a hit event
     public Hand hit(Deck deck) {
         isDoubleDown = true;
+        EventLog.getInstance().logEvent(HIT_EVENT);
         return super.hit(deck);
     }
 
@@ -78,6 +82,12 @@ public class User extends Player {
     public void resetHand() {
         super.resetHand();
         bet = 0;
+    }
+
+    // MODIFIES: EventLog
+    // EFFECTS: logs a check score event
+    public void checkScore() {
+        EventLog.getInstance().logEvent(SCORE_EVENT);
     }
 
     public int getBalance() {
@@ -107,4 +117,5 @@ public class User extends Player {
         json.put("hand", objectToJson(hand));
         return json;
     }
+
 }

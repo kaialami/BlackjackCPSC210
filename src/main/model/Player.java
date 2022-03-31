@@ -62,6 +62,12 @@ public abstract class Player extends Writable {
         return false;
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates player score to match hand.
+    public void updateScore() {
+        score = hand.evaluate();
+    }
+
     public Hand getHand() {
         return hand;
     }

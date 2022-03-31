@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+import model.Event;
 import org.json.JSONException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -60,6 +61,7 @@ public class BlackjackPlayer extends JFrame {
                     sleepFor(1200);
                     playRound();
                 } else if (activeButton.getLabel().equals("No")) {
+                    printEvents();
                     System.exit(0);
                 }
             }
@@ -171,6 +173,7 @@ public class BlackjackPlayer extends JFrame {
         String text = "<html>You're broke!<br>Why don't you come back when you're a little... richer.<html>";
         textPanel.setText(text);
         sleepFor(4000);
+        printEvents();
         System.exit(0);
     }
 
@@ -209,6 +212,7 @@ public class BlackjackPlayer extends JFrame {
                 } else if (activeButton.getLabel().equals("No")) {
                     buttonPanel.deactivateButton();
                     saveGameState();
+                    printEvents();
                     System.exit(0);
                 }
             }
@@ -256,6 +260,7 @@ public class BlackjackPlayer extends JFrame {
     // MODIFIES: this
     // EFFECTS: displays score and gives hint
     private void doDisplayScore() {
+        user.checkScore();
         String hint = "Hint: ";
         if (user.getScore() >= 17) {
             hint += "Try standing here.";
@@ -296,19 +301,19 @@ public class BlackjackPlayer extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: deals cards. user and dealer hit twice to simulate dealing
+    // EFFECTS: deals cards to user and dealer
     private void deal() {
         textPanel.setText(TextPanel.DEAL);
-        dealer.hit(deck);
+        deck.dealOneCard(dealer);
         gamePanel.repaint();
         sleepFor(200);
-        dealer.hit(deck);
+        deck.dealOneCard(dealer);
         gamePanel.repaint();
         sleepFor(200);
-        user.hit(deck);
+        deck.dealOneCard(user);
         gamePanel.repaint();
         sleepFor(200);
-        user.hit(deck);
+        deck.dealOneCard(user);
         gamePanel.repaint();
         sleepFor(800);
         user.setDoubleDown(false);
@@ -472,6 +477,15 @@ public class BlackjackPlayer extends JFrame {
             Thread.sleep(time);
         } catch (InterruptedException  e) {
             Thread.currentThread().interrupt();
+        }
+    }
+
+    // EFFECTS: prints events to console
+    private void printEvents() {
+        EventLog eventLog = EventLog.getInstance();
+        System.out.println("Event log:");
+        for (Event event : eventLog) {
+            System.out.println(event.toString() + "\n");
         }
     }
 }

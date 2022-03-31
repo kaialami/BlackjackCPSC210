@@ -60,4 +60,12 @@ public class DeckTest {
         deck.replaceDeckWith(newCards);
         assertEquals(1, deck.getActiveDeck().size());
     }
+
+    @Test
+    public void testDealOneCard() {
+        User user = new User();
+        deck.dealOneCard(user);
+        assertEquals(51, deck.getActiveDeck().size());
+        assertEquals(1, user.getHand().getSize());
+    }
 }
