@@ -39,3 +39,22 @@ As a user, I want to be able to:
 - have the option to save my progress (including balance and the current state of the deck) immediately after quitting out after a round
 - load my saved progress when starting the application to the start of a new round (including saved balance and state of the deck)
 
+****
+## Phase 4: Task 2
+Sample event log after two rounds of play where the user clicked the hit button twice and the check score button three times:
+
+Event log:  
+Wed Mar 30 17:34:13 PDT 2022  
+User hit
+
+Wed Mar 30 17:34:13 PDT 2022  
+Check user score  
+
+Wed Mar 30 17:34:13 PDT 2022  
+Check user score  
+
+Wed Mar 30 17:34:13 PDT 2022  
+User hit  
+
+Wed Mar 30 17:34:13 PDT 2022  
+Check user score  
