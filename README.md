@@ -41,6 +41,11 @@ As a user, I want to be able to:
 
 ****
 ## Phase 4: Task 2
+User events:
+- User hit (add X to Y)  
+- Check user score (Score is a value dependent on current Y)       
+
+
 Sample event log after two rounds of play where the user clicked the hit button twice and the check score button three times:
 
 Event log:  
@@ -58,3 +63,19 @@ User hit
 
 Wed Mar 30 17:34:13 PDT 2022  
 Check user score  
+
+
+****
+## Phase 4: Task 3
+From building my UML diagram, I noticed how many classes have associations for User and Deck, 
+when in the actual game there is only one User and Dealer. If I was not careful, it could be possible to have two separate 
+instances of User or Dealer. I would probably refactor this so that it reduces this coupling. For example, I would probably
+center my three main fields for the game (User, Dealer, Deck) in GameState, and then access them from GameState whenever 
+I needed them. This way I don't need to worry if, for example, GamePanel had the same User field as BlackjackPlayer.
+It would also clean up my UML by reducing coupling.
+
+I think another change I'd like to make is to split up BlackjackPlayer's functionality into other classes. 
+As it is, this class manages both the application window and the actual game functionality (like user input), so it's very long with a lot of
+helper methods. I think it would be possible (and fairly easy enough) to refactor this class so that the parts that manage the 
+window are separate from the parts that manage how the game runs. I could even refactor the methods that manage persistence 
+in BlackjackPlayer into another class made solely for that purpose.
