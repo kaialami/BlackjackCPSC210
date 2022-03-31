@@ -25,7 +25,6 @@ public class BlackjackPlayer extends JFrame {
     private User user;
     private Dealer dealer;
     private Deck deck;
-    private boolean isDeal;
 
     private volatile boolean run;
 
@@ -449,7 +448,6 @@ public class BlackjackPlayer extends JFrame {
         user = new User();
         dealer = new Dealer();
         run = true;
-        isDeal = false;
         gs = new GameState(user, dealer, deck);
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
