@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import static ui.panels.TextPanel.PLAY_AGAIN;
 
+// The game window that handles ui
 public class BlackjackPlayer extends JFrame {
     public static final int WIDTH = 900;
     public static final String JSON_STORE = "./data/gamestate.json";

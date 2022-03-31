@@ -37,7 +37,7 @@ public class YesButton extends Button {
         //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveButton(YesButton.this);
+            bp.setActiveButton(YesButton.this);
         }
     }
 }

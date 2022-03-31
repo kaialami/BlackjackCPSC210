@@ -35,7 +35,7 @@ public class ScoreButton extends Button {
         //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveButton(ScoreButton.this);
+            bp.setActiveButton(ScoreButton.this);
         }
     }
 }

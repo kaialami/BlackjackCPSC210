@@ -34,7 +34,7 @@ public class HitButton extends Button {
         //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveButton(HitButton.this);
+            bp.setActiveButton(HitButton.this);
         }
     }
 }

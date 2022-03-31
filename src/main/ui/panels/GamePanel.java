@@ -8,6 +8,8 @@ import java.awt.*;
 
 // Modelled after CPSC 210's SpaceInvaders app
 // https://github.students.cs.ubc.ca/CPSC210/B02-SpaceInvadersBase.git
+
+// Panel that displays game visuals (cards, balance, etc)
 public class GamePanel extends JPanel {
     public static final int HEIGHT = 540;
     public static final Color BG_COLOR = new Color(51, 51, 51);

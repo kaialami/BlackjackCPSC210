@@ -8,12 +8,12 @@ import javax.swing.*;
 // https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
 public abstract class Button {
     protected JButton button;
-    protected ButtonPanel tp;
+    protected ButtonPanel bp;
     private boolean active;
     protected String label;
 
     public Button(ButtonPanel tp, JComponent parent) {
-        this.tp = tp;
+        this.bp = tp;
         createButton(parent);
         addToParent(parent);
         active = false;

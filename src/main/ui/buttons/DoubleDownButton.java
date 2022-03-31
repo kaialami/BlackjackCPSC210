@@ -34,7 +34,7 @@ public class DoubleDownButton extends Button {
         //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveButton(DoubleDownButton.this);
+            bp.setActiveButton(DoubleDownButton.this);
         }
     }
 }

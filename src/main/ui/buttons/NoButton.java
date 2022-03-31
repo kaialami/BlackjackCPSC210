@@ -38,7 +38,7 @@ public class NoButton extends Button {
         //          called by the framework when the button is clicked
         @Override
         public void actionPerformed(ActionEvent e) {
-            tp.setActiveButton(NoButton.this);
+            bp.setActiveButton(NoButton.this);
         }
     }
 }

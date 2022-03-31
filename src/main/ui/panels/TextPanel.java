@@ -7,6 +7,7 @@ import java.awt.*;
 
 import static ui.BlackjackPlayer.JSON_STORE;
 
+// Panel where text is displayed during the game
 public class TextPanel extends JPanel {
     private static final int HEIGHT = 130;
     private static final int FONT_SIZE = 20;
